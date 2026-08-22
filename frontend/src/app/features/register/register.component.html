@@ -1,0 +1,69 @@
+<div class="page-container auth">
+  <div class="auth-card" appScrollReveal>
+    <span class="eyebrow">Join Lumina</span>
+    <h1>Create your account</h1>
+    <p class="auth-card__lede">Save your wishlist, track orders, and check out faster next time.</p>
+
+    @if (error()) {
+      <ui5-message-strip design="Negative" class="auth-card__message">{{ error() }}</ui5-message-strip>
+    }
+
+    <form class="auth-form" (ngSubmit)="submit()">
+      <label class="form-field">
+        <span>Full name</span>
+        <ui5-input
+          required
+          [value]="name"
+          (input)="name = $any($event.target).value"
+          name="name"
+        ></ui5-input>
+      </label>
+      <label class="form-field">
+        <span>Email</span>
+        <ui5-input
+          type="Email"
+          required
+          [value]="email"
+          (input)="email = $any($event.target).value"
+          name="email"
+        ></ui5-input>
+      </label>
+      <label class="form-field">
+        <span>Password</span>
+        <ui5-input
+          type="Password"
+          required
+          [value]="password"
+          (input)="password = $any($event.target).value"
+          name="password"
+        ></ui5-input>
+        <span class="form-field__hint">At least 8 characters.</span>
+      </label>
+      <label class="form-field">
+        <span>Confirm password</span>
+        <ui5-input
+          type="Password"
+          required
+          [value]="confirmPassword"
+          (input)="confirmPassword = $any($event.target).value"
+          name="confirmPassword"
+        ></ui5-input>
+        @if (confirmPassword && !passwordsMatch()) {
+          <span class="form-field__hint form-field__hint--error">Passwords don't match.</span>
+        }
+      </label>
+
+      <button type="submit" class="btn btn--primary auth-form__submit" [disabled]="!canSubmit()">
+        @if (submitting()) {
+          <ui5-busy-indicator active size="S"></ui5-busy-indicator>
+        } @else {
+          Create account
+        }
+      </button>
+    </form>
+
+    <p class="auth-card__switch">
+      Already have an account? <a routerLink="/login">Log in</a>
+    </p>
+  </div>
+</div>

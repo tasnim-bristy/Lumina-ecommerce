@@ -1,0 +1,310 @@
+// node_modules/@ui5/webcomponents/dist/generated/i18n/i18n-defaults.js
+var AVATAR_TOOLTIP = {
+  key: "AVATAR_TOOLTIP",
+  defaultText: "Avatar"
+};
+var BADGE_DESCRIPTION_BADGE = {
+  key: "BADGE_DESCRIPTION_BADGE",
+  defaultText: "Badge"
+};
+var BADGE_DESCRIPTION_TAG = {
+  key: "BADGE_DESCRIPTION_TAG",
+  defaultText: "Tag"
+};
+var BADGE_ROLE_DESCRIPTION = {
+  key: "BADGE_ROLE_DESCRIPTION",
+  defaultText: "Tag button"
+};
+var BADGE_ERROR = {
+  key: "BADGE_ERROR",
+  defaultText: "Error"
+};
+var BADGE_WARNING = {
+  key: "BADGE_WARNING",
+  defaultText: "Warning"
+};
+var BADGE_SUCCESS = {
+  key: "BADGE_SUCCESS",
+  defaultText: "Success"
+};
+var BADGE_INFORMATION = {
+  key: "BADGE_INFORMATION",
+  defaultText: "Information"
+};
+var BUSY_INDICATOR_TITLE = {
+  key: "BUSY_INDICATOR_TITLE",
+  defaultText: "Please wait"
+};
+var BUTTON_ARIA_TYPE_ACCEPT = {
+  key: "BUTTON_ARIA_TYPE_ACCEPT",
+  defaultText: "Positive Action"
+};
+var BUTTON_ARIA_TYPE_REJECT = {
+  key: "BUTTON_ARIA_TYPE_REJECT",
+  defaultText: "Negative Action"
+};
+var BUTTON_ARIA_TYPE_EMPHASIZED = {
+  key: "BUTTON_ARIA_TYPE_EMPHASIZED",
+  defaultText: "Emphasized"
+};
+var DELETE = {
+  key: "DELETE",
+  defaultText: "Delete"
+};
+var GROUP_HEADER_TEXT = {
+  key: "GROUP_HEADER_TEXT",
+  defaultText: "Group Header"
+};
+var SELECT_ROLE_DESCRIPTION = {
+  key: "SELECT_ROLE_DESCRIPTION",
+  defaultText: "Listbox"
+};
+var INPUT_SUGGESTIONS = {
+  key: "INPUT_SUGGESTIONS",
+  defaultText: "Suggestions available"
+};
+var INPUT_SUGGESTIONS_TITLE = {
+  key: "INPUT_SUGGESTIONS_TITLE",
+  defaultText: "Select"
+};
+var INPUT_SUGGESTIONS_ONE_HIT = {
+  key: "INPUT_SUGGESTIONS_ONE_HIT",
+  defaultText: "1 result available"
+};
+var INPUT_SUGGESTIONS_MORE_HITS = {
+  key: "INPUT_SUGGESTIONS_MORE_HITS",
+  defaultText: "{0} results are available"
+};
+var INPUT_SUGGESTIONS_NO_HIT = {
+  key: "INPUT_SUGGESTIONS_NO_HIT",
+  defaultText: "No results"
+};
+var INPUT_CLEAR_ICON_ACC_NAME = {
+  key: "INPUT_CLEAR_ICON_ACC_NAME",
+  defaultText: "Clear"
+};
+var LIST_ITEM_POSITION = {
+  key: "LIST_ITEM_POSITION",
+  defaultText: "List item {0} of {1}"
+};
+var LIST_ITEM_SELECTED = {
+  key: "LIST_ITEM_SELECTED",
+  defaultText: "Selected"
+};
+var LIST_ITEM_NOT_SELECTED = {
+  key: "LIST_ITEM_NOT_SELECTED",
+  defaultText: "Not Selected"
+};
+var LIST_ITEM_GROUP_HEADER = {
+  key: "LIST_ITEM_GROUP_HEADER",
+  defaultText: "Group Header"
+};
+var ARIA_LABEL_LIST_ITEM_CHECKBOX = {
+  key: "ARIA_LABEL_LIST_ITEM_CHECKBOX",
+  defaultText: "Multiple Selection mode."
+};
+var ARIA_LABEL_LIST_ITEM_RADIO_BUTTON = {
+  key: "ARIA_LABEL_LIST_ITEM_RADIO_BUTTON",
+  defaultText: "Item Selection."
+};
+var ARIA_LABEL_LIST_SELECTABLE = {
+  key: "ARIA_LABEL_LIST_SELECTABLE",
+  defaultText: "Contains Selectable Items"
+};
+var ARIA_LABEL_LIST_MULTISELECTABLE = {
+  key: "ARIA_LABEL_LIST_MULTISELECTABLE",
+  defaultText: "Contains Multi-Selectable Items"
+};
+var ARIA_LABEL_LIST_DELETABLE = {
+  key: "ARIA_LABEL_LIST_DELETABLE",
+  defaultText: "Contains Deletable Items"
+};
+var MESSAGE_STRIP_CLOSE_BUTTON = {
+  key: "MESSAGE_STRIP_CLOSE_BUTTON",
+  defaultText: "Information Bar Close"
+};
+var MESSAGE_STRIP_CLOSABLE = {
+  key: "MESSAGE_STRIP_CLOSABLE",
+  defaultText: "Closable"
+};
+var MESSAGE_STRIP_ERROR = {
+  key: "MESSAGE_STRIP_ERROR",
+  defaultText: "Error Information Bar"
+};
+var MESSAGE_STRIP_WARNING = {
+  key: "MESSAGE_STRIP_WARNING",
+  defaultText: "Warning Information Bar"
+};
+var MESSAGE_STRIP_SUCCESS = {
+  key: "MESSAGE_STRIP_SUCCESS",
+  defaultText: "Success Information Bar"
+};
+var MESSAGE_STRIP_INFORMATION = {
+  key: "MESSAGE_STRIP_INFORMATION",
+  defaultText: "Information Bar"
+};
+var INPUT_AVALIABLE_VALUES = {
+  key: "INPUT_AVALIABLE_VALUES",
+  defaultText: "Available Values"
+};
+var RADIO_BUTTON_GROUP_REQUIRED = {
+  key: "RADIO_BUTTON_GROUP_REQUIRED",
+  defaultText: "Select one of the available options."
+};
+var RANGE_SLIDER_ARIA_DESCRIPTION = {
+  key: "RANGE_SLIDER_ARIA_DESCRIPTION",
+  defaultText: "Range"
+};
+var RANGE_SLIDER_START_HANDLE_DESCRIPTION = {
+  key: "RANGE_SLIDER_START_HANDLE_DESCRIPTION",
+  defaultText: "Left handle"
+};
+var RANGE_SLIDER_END_HANDLE_DESCRIPTION = {
+  key: "RANGE_SLIDER_END_HANDLE_DESCRIPTION",
+  defaultText: "Right handle"
+};
+var RATING_INDICATOR_TOOLTIP_TEXT = {
+  key: "RATING_INDICATOR_TOOLTIP_TEXT",
+  defaultText: "Rating"
+};
+var RATING_INDICATOR_TEXT = {
+  key: "RATING_INDICATOR_TEXT",
+  defaultText: "Rating Indicator"
+};
+var RATING_INDICATOR_ARIA_DESCRIPTION = {
+  key: "RATING_INDICATOR_ARIA_DESCRIPTION",
+  defaultText: "Required"
+};
+var RESPONSIVE_POPOVER_CLOSE_DIALOG_BUTTON = {
+  key: "RESPONSIVE_POPOVER_CLOSE_DIALOG_BUTTON",
+  defaultText: "Decline"
+};
+var LOAD_MORE_TEXT = {
+  key: "LOAD_MORE_TEXT",
+  defaultText: "More"
+};
+var TEXTAREA_CHARACTERS_LEFT = {
+  key: "TEXTAREA_CHARACTERS_LEFT",
+  defaultText: "{0} characters remaining"
+};
+var TEXTAREA_CHARACTERS_EXCEEDED = {
+  key: "TEXTAREA_CHARACTERS_EXCEEDED",
+  defaultText: "{0} characters over limit"
+};
+var VALUE_STATE_TYPE_ERROR = {
+  key: "VALUE_STATE_TYPE_ERROR",
+  defaultText: "Value State Error"
+};
+var VALUE_STATE_TYPE_WARNING = {
+  key: "VALUE_STATE_TYPE_WARNING",
+  defaultText: "Value State Warning"
+};
+var VALUE_STATE_TYPE_SUCCESS = {
+  key: "VALUE_STATE_TYPE_SUCCESS",
+  defaultText: "Value State Success"
+};
+var VALUE_STATE_TYPE_INFORMATION = {
+  key: "VALUE_STATE_TYPE_INFORMATION",
+  defaultText: "Value State Information"
+};
+var VALUE_STATE_ERROR = {
+  key: "VALUE_STATE_ERROR",
+  defaultText: "Invalid entry"
+};
+var VALUE_STATE_WARNING = {
+  key: "VALUE_STATE_WARNING",
+  defaultText: "Warning issued"
+};
+var VALUE_STATE_INFORMATION = {
+  key: "VALUE_STATE_INFORMATION",
+  defaultText: "Informative entry"
+};
+var VALUE_STATE_SUCCESS = {
+  key: "VALUE_STATE_SUCCESS",
+  defaultText: "Entry successfully validated"
+};
+var DIALOG_HEADER_ARIA_ROLE_DESCRIPTION = {
+  key: "DIALOG_HEADER_ARIA_ROLE_DESCRIPTION",
+  defaultText: "Interactive Header"
+};
+var DIALOG_HEADER_ARIA_DESCRIBEDBY_RESIZABLE = {
+  key: "DIALOG_HEADER_ARIA_DESCRIBEDBY_RESIZABLE",
+  defaultText: "Use Shift+Arrow keys to resize"
+};
+var DIALOG_HEADER_ARIA_DESCRIBEDBY_DRAGGABLE = {
+  key: "DIALOG_HEADER_ARIA_DESCRIBEDBY_DRAGGABLE",
+  defaultText: "Use Arrow keys to move"
+};
+var DIALOG_HEADER_ARIA_DESCRIBEDBY_DRAGGABLE_RESIZABLE = {
+  key: "DIALOG_HEADER_ARIA_DESCRIBEDBY_DRAGGABLE_RESIZABLE",
+  defaultText: "Use Arrow keys to move, Shift+Arrow keys to resize"
+};
+var LABEL_COLON = {
+  key: "LABEL_COLON",
+  defaultText: ":"
+};
+
+export {
+  AVATAR_TOOLTIP,
+  BADGE_DESCRIPTION_BADGE,
+  BADGE_DESCRIPTION_TAG,
+  BADGE_ROLE_DESCRIPTION,
+  BADGE_ERROR,
+  BADGE_WARNING,
+  BADGE_SUCCESS,
+  BADGE_INFORMATION,
+  BUSY_INDICATOR_TITLE,
+  BUTTON_ARIA_TYPE_ACCEPT,
+  BUTTON_ARIA_TYPE_REJECT,
+  BUTTON_ARIA_TYPE_EMPHASIZED,
+  DELETE,
+  GROUP_HEADER_TEXT,
+  SELECT_ROLE_DESCRIPTION,
+  INPUT_SUGGESTIONS,
+  INPUT_SUGGESTIONS_TITLE,
+  INPUT_SUGGESTIONS_ONE_HIT,
+  INPUT_SUGGESTIONS_MORE_HITS,
+  INPUT_SUGGESTIONS_NO_HIT,
+  INPUT_CLEAR_ICON_ACC_NAME,
+  LIST_ITEM_POSITION,
+  LIST_ITEM_SELECTED,
+  LIST_ITEM_NOT_SELECTED,
+  LIST_ITEM_GROUP_HEADER,
+  ARIA_LABEL_LIST_ITEM_CHECKBOX,
+  ARIA_LABEL_LIST_ITEM_RADIO_BUTTON,
+  ARIA_LABEL_LIST_SELECTABLE,
+  ARIA_LABEL_LIST_MULTISELECTABLE,
+  ARIA_LABEL_LIST_DELETABLE,
+  MESSAGE_STRIP_CLOSE_BUTTON,
+  MESSAGE_STRIP_CLOSABLE,
+  MESSAGE_STRIP_ERROR,
+  MESSAGE_STRIP_WARNING,
+  MESSAGE_STRIP_SUCCESS,
+  MESSAGE_STRIP_INFORMATION,
+  INPUT_AVALIABLE_VALUES,
+  RADIO_BUTTON_GROUP_REQUIRED,
+  RANGE_SLIDER_ARIA_DESCRIPTION,
+  RANGE_SLIDER_START_HANDLE_DESCRIPTION,
+  RANGE_SLIDER_END_HANDLE_DESCRIPTION,
+  RATING_INDICATOR_TOOLTIP_TEXT,
+  RATING_INDICATOR_TEXT,
+  RATING_INDICATOR_ARIA_DESCRIPTION,
+  RESPONSIVE_POPOVER_CLOSE_DIALOG_BUTTON,
+  LOAD_MORE_TEXT,
+  TEXTAREA_CHARACTERS_LEFT,
+  TEXTAREA_CHARACTERS_EXCEEDED,
+  VALUE_STATE_TYPE_ERROR,
+  VALUE_STATE_TYPE_WARNING,
+  VALUE_STATE_TYPE_SUCCESS,
+  VALUE_STATE_TYPE_INFORMATION,
+  VALUE_STATE_ERROR,
+  VALUE_STATE_WARNING,
+  VALUE_STATE_INFORMATION,
+  VALUE_STATE_SUCCESS,
+  DIALOG_HEADER_ARIA_ROLE_DESCRIPTION,
+  DIALOG_HEADER_ARIA_DESCRIBEDBY_RESIZABLE,
+  DIALOG_HEADER_ARIA_DESCRIBEDBY_DRAGGABLE,
+  DIALOG_HEADER_ARIA_DESCRIBEDBY_DRAGGABLE_RESIZABLE,
+  LABEL_COLON
+};
+//# sourceMappingURL=chunk-MKUK4J7G.js.map

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../../node_modules/@ui5/webcomponents-base/dist/types/Float.js"],
+  "sourcesContent": ["import DataType from \"./DataType.js\";\n/**\n * @class\n * Float data type.\n *\n * @constructor\n * @public\n */\nclass Float extends DataType {\n  static isValid(value) {\n    return Number(value) === value;\n  }\n  static attributeToProperty(attributeValue) {\n    return parseFloat(attributeValue);\n  }\n}\nexport default Float;\n"],
+  "mappings": ";;;;;AAQA,IAAM,QAAN,cAAoB,iBAAS;AAAA,EAC3B,OAAO,QAAQ,OAAO;AACpB,WAAO,OAAO,KAAK,MAAM;AAAA,EAC3B;AAAA,EACA,OAAO,oBAAoB,gBAAgB;AACzC,WAAO,WAAW,cAAc;AAAA,EAClC;AACF;AACA,IAAO,gBAAQ;",
+  "names": []
+}

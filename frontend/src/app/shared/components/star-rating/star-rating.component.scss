@@ -1,0 +1,38 @@
+:host {
+  display: inline-flex;
+}
+
+.star-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+
+  &--sm {
+    --_star-size: 0.85rem;
+    font-size: 0.75rem;
+  }
+
+  &--md {
+    --_star-size: 1rem;
+    font-size: 0.85rem;
+  }
+
+  &--lg {
+    --_star-size: 1.25rem;
+    font-size: 1rem;
+  }
+}
+
+.star-rating__stars {
+  --sapContent_IconColor: var(--color-gold);
+  --_ui5_rating_indicator_item_size: var(--_star-size, 1rem);
+}
+
+.star-rating__value {
+  font-weight: 600;
+  color: var(--color-charcoal);
+}
+
+.star-rating__count {
+  color: var(--color-charcoal-soft);
+}

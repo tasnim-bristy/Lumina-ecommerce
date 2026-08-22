@@ -1,0 +1,67 @@
+<div class="page-container wishlist">
+  <h1>Your wishlist</h1>
+
+  @if (wishlistService.items().length === 0) {
+    <app-empty-state
+      icon="favorite"
+      title="Your wishlist is empty"
+      message="Save products you're weighing up and they'll wait for you here."
+      actionLabel="Discover products"
+      actionRoute="/"
+    ></app-empty-state>
+  } @else {
+    <div class="wishlist-grid" appScrollReveal>
+      @for (item of wishlistService.items(); track item.id; let i = $index) {
+        <div
+          class="wishlist-card hover-lift"
+          [class.is-pending]="isPending(item.product.id)"
+          [class.is-removing]="isRemoving(item.product.id)"
+          [appScrollReveal]="i * 60"
+        >
+          <a [routerLink]="['/product', item.product.slug]" class="wishlist-card__media">
+            <img [src]="item.product.thumbnail" [alt]="item.product.name" />
+          </a>
+
+          <div class="wishlist-card__body">
+            <span class="wishlist-card__brand">{{ item.product.brand }}</span>
+            <a [routerLink]="['/product', item.product.slug]" class="wishlist-card__name">
+              {{ item.product.name }}
+            </a>
+            <app-price-tag
+              [price]="item.product.price"
+              [compareAtPrice]="item.product.compare_at_price"
+              [currency]="item.product.currency"
+              size="sm"
+            ></app-price-tag>
+          </div>
+
+          <div class="wishlist-card__actions">
+            <button
+              type="button"
+              class="btn btn--primary"
+              [disabled]="isPending(item.product.id) || item.product.stock === 0"
+              (click)="moveToCart(item.product.id)"
+            >
+              @if (isMoved(item.product.id)) {
+                Moved to cart
+              } @else if (item.product.stock === 0) {
+                Out of stock
+              } @else {
+                Move to cart
+              }
+            </button>
+            <button
+              type="button"
+              class="wishlist-card__remove"
+              [disabled]="isPending(item.product.id)"
+              (click)="remove(item.product.id)"
+              aria-label="Remove from wishlist"
+            >
+              <ui5-icon name="delete"></ui5-icon>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

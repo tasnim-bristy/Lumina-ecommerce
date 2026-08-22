@@ -1,0 +1,23 @@
+@if (variant() === 'card') {
+  <div class="skeleton-grid">
+    @for (i of repeats; track i) {
+      <div class="skeleton-card">
+        <div class="skeleton-shimmer skeleton-card__image"></div>
+        <div class="skeleton-shimmer skeleton-card__line skeleton-card__line--wide"></div>
+        <div class="skeleton-shimmer skeleton-card__line skeleton-card__line--narrow"></div>
+      </div>
+    }
+  </div>
+} @else if (variant() === 'image') {
+  @for (i of repeats; track i) {
+    <div class="skeleton-shimmer skeleton-image"></div>
+  }
+} @else if (variant() === 'circle') {
+  @for (i of repeats; track i) {
+    <div class="skeleton-shimmer skeleton-circle"></div>
+  }
+} @else {
+  @for (i of repeats; track i) {
+    <div class="skeleton-shimmer skeleton-line"></div>
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../../node_modules/@ui5/webcomponents-base/dist/config/Tooltips.js"],
+  "sourcesContent": ["import { getEnableDefaultTooltips as getConfiguredEnableDefaultTooltips } from \"../InitialConfiguration.js\";\nlet _enableDefaultTooltips;\n/**\n * Returns if the \"enableDefaultTooltips\" configuration is set.\n * @public\n * @since 2.1.0\n * @returns { boolean }\n */\nconst getEnableDefaultTooltips = () => {\n  if (_enableDefaultTooltips === undefined) {\n    _enableDefaultTooltips = getConfiguredEnableDefaultTooltips();\n  }\n  return _enableDefaultTooltips;\n};\n/**\n * Defines the \"enableDefaultTooltips\" setting.\n *\n * - When set to \"true\" (default), the components will display default tooltips.\n * - When set to \"false\", the components will NOT display default tooltips.\n *\n * @public\n * @since 2.1.0\n * @param { boolean } enableDefaultTooltips\n */\nconst setEnableDefaultTooltips = enableDefaultTooltips => {\n  _enableDefaultTooltips = enableDefaultTooltips;\n};\nexport { getEnableDefaultTooltips, setEnableDefaultTooltips };\n"],
+  "mappings": ";;;;;AACA,IAAI;AAOJ,IAAMA,4BAA2B,MAAM;AACrC,MAAI,2BAA2B,QAAW;AACxC,6BAAyB,yBAAmC;AAAA,EAC9D;AACA,SAAO;AACT;",
+  "names": ["getEnableDefaultTooltips"]
+}

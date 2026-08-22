@@ -1,0 +1,49 @@
+:host {
+  display: inline-flex;
+}
+
+.price-tag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-family: 'Fraunces', serif;
+
+  &--sm {
+    .price-tag__current { font-size: 0.95rem; }
+    .price-tag__compare { font-size: 0.8rem; }
+  }
+
+  &--md {
+    .price-tag__current { font-size: 1.25rem; }
+    .price-tag__compare { font-size: 0.95rem; }
+  }
+
+  &--lg {
+    .price-tag__current { font-size: 1.75rem; }
+    .price-tag__compare { font-size: 1.15rem; }
+  }
+}
+
+.price-tag__current {
+  font-weight: 600;
+  color: var(--color-charcoal);
+}
+
+.price-tag__compare {
+  color: var(--color-charcoal-soft);
+  text-decoration: line-through;
+  font-weight: 400;
+}
+
+.price-tag__badge {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-charcoal);
+  background: var(--color-gold);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  align-self: center;
+}

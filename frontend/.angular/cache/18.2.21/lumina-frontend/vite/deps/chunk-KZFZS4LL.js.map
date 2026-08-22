@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../../node_modules/@ui5/webcomponents-base/dist/util/willShowContent.js"],
+  "sourcesContent": ["const willShowContent = childNodes => {\n  return Array.from(childNodes).filter(node => {\n    return node.nodeType !== Node.COMMENT_NODE && (node.nodeType !== Node.TEXT_NODE || (node.nodeValue || \"\").trim().length !== 0);\n  }).length > 0;\n};\nexport default willShowContent;\n"],
+  "mappings": ";AAAA,IAAM,kBAAkB,gBAAc;AACpC,SAAO,MAAM,KAAK,UAAU,EAAE,OAAO,UAAQ;AAC3C,WAAO,KAAK,aAAa,KAAK,iBAAiB,KAAK,aAAa,KAAK,cAAc,KAAK,aAAa,IAAI,KAAK,EAAE,WAAW;AAAA,EAC9H,CAAC,EAAE,SAAS;AACd;AACA,IAAO,0BAAQ;",
+  "names": []
+}

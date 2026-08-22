@@ -1,0 +1,399 @@
+:host {
+  display: block;
+  padding: 2.5rem 0 5rem;
+}
+
+.checkout h1 {
+  margin-bottom: 2rem;
+}
+
+.checkout__layout {
+  display: grid;
+  grid-template-columns: 1fr 20rem;
+  gap: 3rem;
+  align-items: start;
+}
+
+.checkout__section {
+  margin-bottom: 2.25rem;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+}
+
+.checkout__payment-note {
+  font-size: 0.82rem;
+  color: var(--color-charcoal-soft);
+  margin-bottom: 1rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: var(--color-charcoal-soft);
+
+  ui5-input {
+    width: 100%;
+  }
+
+  &--full {
+    grid-column: 1 / -1;
+  }
+}
+
+// Native <select> for Division/District/Upazila — plain HTML rather than
+// ui5-select so mobile gets the OS's own picker UI, and so option lists with
+// dozens of entries (some districts have 15+ upazilas) don't need any custom
+// event-parsing. Styled to sit visually flush with the ui5-input fields.
+.select-field select {
+  width: 100%;
+  height: 2.5rem;
+  padding: 0 2.25rem 0 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-cream) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%235B584F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    no-repeat right 0.75rem center;
+  background-size: 0.85rem;
+  appearance: none;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-charcoal);
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease-quiet);
+
+  &:hover:not(:disabled) {
+    border-color: var(--color-sage);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-sage);
+    outline-offset: 1px;
+  }
+
+  &:disabled {
+    background-color: var(--color-cream-soft);
+    color: var(--color-charcoal-soft);
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.country-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-sage-pale);
+  color: var(--color-charcoal);
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  ui5-icon {
+    width: 1rem;
+    height: 1rem;
+    color: var(--color-sage-deep);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Payment method — selectable cards
+// ---------------------------------------------------------------------------
+.payment-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.payment-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-cream);
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s var(--ease-quiet), background 0.2s var(--ease-quiet), transform 0.2s var(--ease-quiet), box-shadow 0.2s var(--ease-quiet);
+
+  &:hover {
+    border-color: var(--color-sage);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(47, 46, 43, 0.08);
+  }
+
+  &.is-active {
+    background: var(--color-sage-pale);
+    border-color: var(--color-sage);
+
+    .payment-card__check {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+.payment-card__check {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  background: var(--color-sage);
+  color: var(--color-cream);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.2s var(--ease-quiet), transform 0.2s var(--ease-quiet);
+
+  ui5-icon {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+}
+
+.payment-card__marks {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 1.5rem;
+}
+
+.payment-card__icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  color: var(--color-charcoal-soft);
+}
+
+.payment-card__label {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--color-charcoal);
+}
+
+.payment-card__description {
+  font-size: 0.76rem;
+  color: var(--color-charcoal-soft);
+  line-height: 1.35;
+}
+
+// Smooth reveal for the extra fields under whichever method is selected —
+// same grid-rows collapse technique used by the catalog filter groups.
+.payment-details {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.3s var(--ease-quiet);
+
+  &.is-collapsed {
+    grid-template-rows: 0fr;
+  }
+}
+
+.payment-details__inner {
+  overflow: hidden;
+}
+
+.payment-details__hint {
+  font-size: 0.8rem;
+  color: var(--color-charcoal-soft);
+  margin-top: 0.4rem;
+
+  &--cod {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    background: var(--color-cream-soft);
+  }
+}
+
+.checkout__submit {
+  width: 100%;
+  min-height: 2.8rem;
+  margin-top: 0.5rem;
+}
+
+.checkout-summary {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  position: sticky;
+  top: calc(var(--shell-header-height) + 1.5rem);
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 1rem 0 1.25rem;
+  }
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--color-charcoal-soft);
+    gap: 1rem;
+  }
+}
+
+.checkout-summary__total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  color: var(--color-charcoal);
+  border-top: 1px solid var(--color-border);
+  padding-top: 1rem;
+}
+
+.checkout-summary__payment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.82rem;
+  color: var(--color-charcoal-soft);
+}
+
+.checkout-summary__payment-value {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-charcoal);
+  font-weight: 600;
+
+  ui5-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Confirmation
+// ---------------------------------------------------------------------------
+.checkout__confirmation {
+  max-width: 34rem;
+  margin: 2rem auto 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.checkout__confirmation-icon {
+  width: 3rem;
+  height: 3rem;
+  color: var(--color-sage-deep);
+}
+
+.checkout__confirmation-actions {
+  margin-top: 0.5rem;
+}
+
+.checkout__history {
+  width: 100%;
+  margin-top: 2.5rem;
+  text-align: left;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: 4rem 6rem 6rem 7rem 1fr;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--color-charcoal-soft);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.6rem;
+
+    span:last-child {
+      text-align: right;
+    }
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.6rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: var(--color-sage);
+  color: var(--color-cream);
+
+  &:hover:not(:disabled) {
+    background: var(--color-sage-deep);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@media (max-width: 900px) {
+  .checkout__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-field--full {
+    grid-column: auto;
+  }
+
+  .payment-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .checkout__history li {
+    grid-template-columns: repeat(2, 1fr);
+
+    span:last-child {
+      text-align: left;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-grid {
+    grid-template-columns: 1fr;
+  }
+}

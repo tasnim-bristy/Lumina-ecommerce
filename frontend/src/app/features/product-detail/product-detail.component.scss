@@ -1,0 +1,643 @@
+:host {
+  display: block;
+  padding: 2.5rem 0 5rem;
+}
+
+.pd-skeleton {
+  padding: 2.5rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.pd__top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+// ---------------------------------------------------------------------------
+// Gallery
+// ---------------------------------------------------------------------------
+.pd__gallery-main {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-beige);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    cursor: zoom-in;
+  }
+}
+
+// Hover-zoom lens — desktop/mouse only; touch devices never render or
+// interact with this layer since it's gated behind the media feature.
+.pd__gallery-zoom {
+  display: none;
+
+  @media (hover: hover) and (pointer: fine) {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background-size: 200%;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 0.2s var(--ease-quiet);
+    pointer-events: none;
+
+    &.is-active {
+      opacity: 1;
+    }
+  }
+}
+
+.pd__gallery-zoom-hint {
+  display: none;
+
+  @media (hover: hover) and (pointer: fine) {
+    display: inline-flex;
+    position: absolute;
+    bottom: 0.75rem;
+    right: 0.75rem;
+    width: 2.1rem;
+    height: 2.1rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(250, 247, 242, 0.9);
+    color: var(--color-charcoal-soft);
+
+    ui5-icon {
+      width: 1.05rem;
+      height: 1.05rem;
+    }
+  }
+}
+
+.pd__gallery-thumbs {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+}
+
+.pd__gallery-thumb {
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  padding: 0;
+  cursor: pointer;
+  background: var(--color-beige);
+  transition: transform 0.2s var(--ease-quiet), border-color 0.2s var(--ease-quiet);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &:hover:not(.is-active) {
+    transform: scale(1.05);
+  }
+
+  &.is-active {
+    border-color: var(--color-sage);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Info column
+// ---------------------------------------------------------------------------
+.pd__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.pd__description {
+  color: var(--color-charcoal-soft);
+  line-height: 1.6;
+}
+
+.pd__stock {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-charcoal-soft);
+}
+
+.pd__stock-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+
+  &--in { color: var(--color-sage-deep); }
+  &--out { color: #B4534A; }
+}
+
+.pd__purchase-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.pd__stepper {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+
+  button {
+    width: 2.4rem;
+    height: 2.6rem;
+    border: none;
+    background: transparent;
+    font-size: 1.1rem;
+    color: var(--color-charcoal);
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.pd__stepper-value {
+  min-width: 2rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.pd__add-to-cart {
+  flex: 1;
+  min-height: 2.6rem;
+
+  &.is-success {
+    background: var(--color-sage-deep);
+  }
+}
+
+.pd__goes-well {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pd__goes-well-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-charcoal);
+}
+
+.pd__goes-well-add-all {
+  border: none;
+  background: none;
+  color: var(--color-sage-deep);
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+  min-height: 1.4rem;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.pd__goes-well-list {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+}
+
+.pd__goes-well-item {
+  flex: 0 0 6.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-decoration: none;
+  color: inherit;
+
+  img {
+    width: 6.5rem;
+    height: 6.5rem;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    background: var(--color-beige);
+    transition: transform 0.25s var(--ease-quiet);
+  }
+
+  &:hover img {
+    transform: scale(1.04);
+  }
+}
+
+.pd__goes-well-name {
+  font-size: 0.78rem;
+  color: var(--color-charcoal-soft);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pd__secondary-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pd__toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-charcoal-soft);
+  padding: 0.55rem 0.9rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.85rem;
+
+  ui5-icon {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: var(--color-sage);
+  }
+
+  &.is-active {
+    color: var(--color-sage-deep);
+    border-color: var(--color-sage);
+    background: var(--color-sage-pale);
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+}
+
+.pd__attributes {
+  margin-top: 1rem;
+  border-collapse: collapse;
+  width: 100%;
+
+  th,
+  td {
+    text-align: left;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.88rem;
+  }
+
+  th {
+    color: var(--color-charcoal-soft);
+    font-weight: 500;
+    width: 40%;
+    text-transform: capitalize;
+  }
+
+  td {
+    color: var(--color-charcoal);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Reviews
+// ---------------------------------------------------------------------------
+.pd__reviews {
+  border-top: 1px solid var(--color-border);
+  padding-top: 3rem;
+  margin-bottom: 4rem;
+}
+
+.pd__reviews-summary {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: 2.5rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+.pd__reviews-average {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+.pd__reviews-average-number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--color-charcoal);
+}
+
+.pd__reviews-count {
+  color: var(--color-charcoal-soft);
+  font-size: 0.85rem;
+}
+
+.pd__reviews-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  justify-content: center;
+}
+
+.pd__reviews-bar-row {
+  display: grid;
+  grid-template-columns: 2rem 1fr 2.5rem;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--color-charcoal-soft);
+}
+
+.pd__reviews-bar-track {
+  height: 0.4rem;
+  background: var(--color-beige);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.pd__reviews-bar-fill {
+  height: 100%;
+  background: var(--color-gold);
+}
+
+.pd__review-form {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  max-width: 34rem;
+}
+
+.pd__review-message {
+  width: 100%;
+}
+
+.pd__review-stars {
+  display: flex;
+  gap: 0.3rem;
+
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0.2rem;
+  }
+}
+
+.pd__review-star {
+  width: 1.4rem;
+  height: 1.4rem;
+  color: var(--color-border);
+
+  &.is-filled {
+    color: var(--color-gold);
+  }
+}
+
+.pd__review-textarea {
+  width: 100%;
+}
+
+.pd__review-login-prompt {
+  color: var(--color-charcoal-soft);
+
+  a {
+    color: var(--color-sage-deep);
+    font-weight: 600;
+  }
+}
+
+.pd__no-reviews {
+  color: var(--color-charcoal-soft);
+}
+
+.pd__review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pd__review {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.pd__review-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.pd__review-author {
+  font-weight: 600;
+  color: var(--color-charcoal);
+}
+
+.pd__review-comment {
+  color: var(--color-charcoal-soft);
+  line-height: 1.55;
+}
+
+.pd__review-date {
+  font-size: 0.78rem;
+  color: var(--color-charcoal-soft);
+  opacity: 0.75;
+}
+
+// ---------------------------------------------------------------------------
+// Similar rail (shared shapes from home.component.scss re-declared locally
+// since Angular component styles are scoped per-component)
+// ---------------------------------------------------------------------------
+.pd__similar h2 {
+  margin-bottom: 1.5rem;
+}
+
+.product-rail {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scroll-snap-type: x mandatory;
+}
+
+.product-rail__item {
+  flex: 0 0 15rem;
+  scroll-snap-align: start;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.6rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.btn--primary {
+  background: var(--color-sage);
+  color: var(--color-cream);
+
+  &:hover:not(:disabled) {
+    background: var(--color-sage-deep);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.pagination__page {
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-charcoal-soft);
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.85rem;
+
+  &:hover {
+    border-color: var(--color-sage);
+  }
+
+  &.is-active {
+    background: var(--color-sage);
+    border-color: var(--color-sage);
+    color: var(--color-cream);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Lightbox — hand-rolled full-viewport overlay (no new dependency), sits
+// above the shell header (z-index 40) and the mobile filter drawer (60).
+// ---------------------------------------------------------------------------
+.pd__lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(47, 46, 43, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fade-in 0.2s var(--ease-quiet);
+}
+
+.pd__lightbox-image {
+  max-width: min(90vw, 60rem);
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+}
+
+.pd__lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(250, 247, 242, 0.15);
+  color: var(--color-cream);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: rgba(250, 247, 242, 0.28);
+  }
+
+  ui5-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}
+
+.pd__lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(250, 247, 242, 0.15);
+  color: var(--color-cream);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: rgba(250, 247, 242, 0.28);
+  }
+
+  &--prev {
+    left: 1.5rem;
+  }
+
+  &--next {
+    right: 1.5rem;
+  }
+
+  ui5-icon {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .pd__top,
+  .pd-skeleton {
+    grid-template-columns: 1fr;
+  }
+
+  .pd__reviews-summary {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/shared/components/skeleton-loader/skeleton-loader.component.scss"],
+  "sourcesContent": [":host {\n  display: block;\n  width: 100%;\n}\n\n.skeleton-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));\n  gap: 1.5rem;\n}\n\n.skeleton-card {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n}\n\n.skeleton-card__image {\n  aspect-ratio: 1 / 1;\n  border-radius: 12px;\n}\n\n.skeleton-card__line {\n  height: 0.85rem;\n  border-radius: 6px;\n\n  &--wide { width: 80%; }\n  &--narrow { width: 45%; }\n}\n\n.skeleton-image {\n  width: 100%;\n  aspect-ratio: 1 / 1;\n  border-radius: 12px;\n  margin-bottom: 0.75rem;\n}\n\n.skeleton-circle {\n  width: 2.5rem;\n  height: 2.5rem;\n  border-radius: 50%;\n  display: inline-block;\n  margin-right: 0.5rem;\n}\n\n.skeleton-line {\n  height: 0.85rem;\n  width: 100%;\n  border-radius: 6px;\n  margin-bottom: 0.6rem;\n}\n"],
+  "mappings": ";AAAA;AACE,WAAA;AACA,SAAA;;AAGF,CAAA;AACE,WAAA;AACA,yBAAA,OAAA,SAAA,EAAA,OAAA,KAAA,EAAA;AACA,OAAA;;AAGF,CAAA;AACE,WAAA;AACA,kBAAA;AACA,OAAA;;AAGF,CAAA;AACE,gBAAA,CAAA,CAAA;AACA,iBAAA;;AAGF,CAAA;AACE,UAAA;AACA,iBAAA;;AAEA,CAAA;AAAU,SAAA;;AACV,CAAA;AAAY,SAAA;;AAGd,CAAA;AACE,SAAA;AACA,gBAAA,CAAA,CAAA;AACA,iBAAA;AACA,iBAAA;;AAGF,CAAA;AACE,SAAA;AACA,UAAA;AACA,iBAAA;AACA,WAAA;AACA,gBAAA;;AAGF,CAAA;AACE,UAAA;AACA,SAAA;AACA,iBAAA;AACA,iBAAA;;",
+  "names": []
+}

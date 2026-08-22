@@ -1,0 +1,91 @@
+<div class="page-container compare">
+  <div class="compare__header">
+    <h1>Compare products</h1>
+    @if (compareService.count() > 0) {
+      <button type="button" class="compare__clear" (click)="clearAll()">Clear all</button>
+    }
+  </div>
+
+  @if (compareService.count() === 0) {
+    <app-empty-state
+      icon="compare"
+      title="Nothing to compare yet"
+      message="Use the compare icon on any product card or product page to add up to {{ maxItems }} items here."
+      actionLabel="Browse products"
+      actionRoute="/"
+    ></app-empty-state>
+  } @else if (!canCompare()) {
+    <app-empty-state
+      icon="compare"
+      title="Add one more product"
+      message="Pick at least {{ minItems }} products to see a side-by-side comparison."
+      actionLabel="Browse products"
+      actionRoute="/"
+    ></app-empty-state>
+  } @else if (loading()) {
+    <app-skeleton-loader variant="line" [count]="8"></app-skeleton-loader>
+  } @else if (error()) {
+    <app-empty-state
+      icon="message-error"
+      title="Couldn't load the comparison"
+      message="Please try again in a moment."
+    ></app-empty-state>
+  } @else if (result()) {
+    <div class="compare__table-wrap" appScrollReveal>
+      <table class="compare__table">
+        <thead>
+          <tr>
+            <th class="compare__row-label"></th>
+            @for (product of result()!.products; track product.id) {
+              <th class="compare__col-header" [class.is-removing]="isRemoving(product.id)">
+                <button type="button" class="compare__remove" (click)="remove(product.id)" aria-label="Remove from comparison">
+                  <ui5-icon name="decline"></ui5-icon>
+                </button>
+                <a [routerLink]="['/product', product.slug]" class="compare__product-media">
+                  <img [src]="product.thumbnail" [alt]="product.name" />
+                </a>
+                <a [routerLink]="['/product', product.slug]" class="compare__product-name">{{ product.name }}</a>
+                <span class="compare__product-brand">{{ product.brand }}</span>
+              </th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="compare__row-label">Price</th>
+            @for (product of result()!.products; track product.id) {
+              <td>
+                <app-price-tag
+                  [price]="product.price"
+                  [compareAtPrice]="product.compare_at_price"
+                  [currency]="product.currency"
+                  size="sm"
+                ></app-price-tag>
+              </td>
+            }
+          </tr>
+          <tr>
+            <th class="compare__row-label">Rating</th>
+            @for (product of result()!.products; track product.id) {
+              <td><app-star-rating [rating]="product.rating_avg" [count]="product.rating_count" size="sm"></app-star-rating></td>
+            }
+          </tr>
+          <tr>
+            <th class="compare__row-label">Availability</th>
+            @for (product of result()!.products; track product.id) {
+              <td>{{ product.stock > 0 ? 'In stock' : 'Out of stock' }}</td>
+            }
+          </tr>
+          @for (key of result()!.attribute_keys; track key) {
+            <tr>
+              <th class="compare__row-label">{{ key }}</th>
+              @for (product of result()!.products; track product.id) {
+                <td>{{ product.attributes[key] ?? '—' }}</td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

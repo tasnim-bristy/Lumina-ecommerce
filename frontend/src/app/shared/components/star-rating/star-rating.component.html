@@ -1,0 +1,7 @@
+<span class="star-rating" [class]="'star-rating--' + size()">
+  <ui5-rating-indicator [value]="roundedRating()" readonly class="star-rating__stars"></ui5-rating-indicator>
+  <span class="star-rating__value">{{ rating().toFixed(1) }}</span>
+  @if (count() !== null) {
+    <span class="star-rating__count">({{ count() }})</span>
+  }
+</span>

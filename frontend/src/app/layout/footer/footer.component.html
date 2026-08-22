@@ -1,0 +1,37 @@
+<footer class="shell-footer">
+  <div class="page-container shell-footer__grid">
+    <div class="shell-footer__brand">
+      <span class="shell-footer__logo">Lumina</span>
+      <p>
+        Thoughtfully sourced goods across electronics, fashion, home, beauty, and more —
+        chosen for quality, not volume.
+      </p>
+    </div>
+
+    <div class="shell-footer__column">
+      <span class="shell-footer__heading">Shop</span>
+      @for (cat of categories().slice(0, 4); track cat.id) {
+        <a [routerLink]="['/category', cat.slug]">{{ cat.name }}</a>
+      }
+    </div>
+
+    <div class="shell-footer__column">
+      <span class="shell-footer__heading">Account</span>
+      <a routerLink="/wishlist">Wishlist</a>
+      <a routerLink="/cart">Cart</a>
+      <a routerLink="/compare">Compare</a>
+      <a routerLink="/login">Log in</a>
+    </div>
+
+    <div class="shell-footer__column">
+      <span class="shell-footer__heading">Lumina</span>
+      <p class="shell-footer__note">
+        Quiet, premium, editorial — considered products presented without the noise.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-container shell-footer__bottom">
+    <span>&copy; {{ year }} Lumina. All rights reserved.</span>
+  </div>
+</footer>

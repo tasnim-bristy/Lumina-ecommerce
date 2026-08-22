@@ -1,0 +1,183 @@
+<div class="page-container catalog">
+  <div class="catalog__header">
+    <h1>{{ heading() }}</h1>
+    @if (meta()) {
+      <span class="catalog__count">{{ meta()!.total }} results</span>
+    }
+  </div>
+
+  @if (activeFilterChips().length) {
+    <div class="catalog__chips">
+      @for (chip of activeFilterChips(); track chip.label) {
+        <button type="button" class="filter-chip" (click)="chip.clear()">
+          {{ chip.label }}
+          <ui5-icon name="decline" class="filter-chip__icon"></ui5-icon>
+        </button>
+      }
+      <button type="button" class="catalog__chips-clear" (click)="clearAllFilters()">Clear all</button>
+    </div>
+  }
+
+  <div class="catalog__layout">
+    @if (filtersDrawerOpen()) {
+      <div class="catalog__drawer-scrim" (click)="closeFiltersDrawer()"></div>
+    }
+
+    <aside class="catalog__filters" [class.is-drawer-open]="filtersDrawerOpen()">
+      <div class="catalog__filters-header">
+        <h2>Filters</h2>
+        <button type="button" class="catalog__filters-close" (click)="closeFiltersDrawer()" aria-label="Close filters">
+          <ui5-icon name="decline"></ui5-icon>
+        </button>
+      </div>
+
+      <div class="filter-block">
+        <button type="button" class="filter-block__toggle" (click)="toggleFilterGroup('price')">
+          <h3>Price</h3>
+          <ui5-icon name="slim-arrow-down" class="filter-block__chevron" [class.is-collapsed]="!priceExpanded()"></ui5-icon>
+        </button>
+        <div class="filter-block__collapse" [class.is-collapsed]="!priceExpanded()">
+          <div class="filter-block__collapse-inner">
+            <ui5-range-slider
+              class="filter-block__slider"
+              min="0"
+              [max]="priceCeiling"
+              step="500"
+              [valueStart]="minPrice()"
+              [valueEnd]="maxPrice()"
+              (change)="onPriceSliderChange($event)"
+              show-tooltip
+            ></ui5-range-slider>
+            <div class="filter-block__price-labels">
+              <span>{{ minPrice() | currency:'BDT':'symbol-narrow':'1.0-0' }}</span>
+              <span>{{ maxPrice() | currency:'BDT':'symbol-narrow':'1.0-0' }}{{ maxPrice() === priceCeiling ? '+' : '' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      @if (brands().length) {
+        <div class="filter-block">
+          <button type="button" class="filter-block__toggle" (click)="toggleFilterGroup('brand')">
+            <h3>Brand</h3>
+            <ui5-icon name="slim-arrow-down" class="filter-block__chevron" [class.is-collapsed]="!brandExpanded()"></ui5-icon>
+          </button>
+          <div class="filter-block__collapse" [class.is-collapsed]="!brandExpanded()">
+            <div class="filter-block__collapse-inner">
+              <div class="filter-block__list">
+                @for (brand of brands(); track brand.name) {
+                  <label class="filter-checkbox">
+                    <ui5-checkbox
+                      [checked]="selectedBrands().includes(brand.name)"
+                      (change)="onBrandCheckboxChange(brand.name, $event)"
+                    ></ui5-checkbox>
+                    <span>{{ brand.name }} <span class="filter-checkbox__count">({{ brand.count }})</span></span>
+                  </label>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
+      <div class="filter-block">
+        <button type="button" class="filter-block__toggle" (click)="toggleFilterGroup('rating')">
+          <h3>Rating</h3>
+          <ui5-icon name="slim-arrow-down" class="filter-block__chevron" [class.is-collapsed]="!ratingExpanded()"></ui5-icon>
+        </button>
+        <div class="filter-block__collapse" [class.is-collapsed]="!ratingExpanded()">
+          <div class="filter-block__collapse-inner">
+            <div class="filter-block__list">
+              @for (stars of [4, 3, 2, 1]; track stars) {
+                <button
+                  type="button"
+                  class="rating-filter"
+                  [class.is-active]="ratingMin() === stars"
+                  (click)="setRatingMin(stars)"
+                >
+                  <ui5-icon name="favorite" class="rating-filter__star"></ui5-icon>
+                  {{ stars }} &amp; up
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="filter-block__clear" (click)="clearAllFilters()">Clear all filters</button>
+
+      @if (filtersDrawerOpen()) {
+        <button type="button" class="catalog__drawer-apply" (click)="closeFiltersDrawer()">
+          Show {{ meta()?.total ?? '' }} results
+        </button>
+      }
+    </aside>
+
+    <section class="catalog__results">
+      <div class="catalog__toolbar">
+        <button type="button" class="catalog__filters-trigger" (click)="openFiltersDrawer()">
+          <ui5-icon name="filter"></ui5-icon>
+          Filters
+          @if (activeFilterChips().length) {
+            <span class="catalog__filters-trigger-count">{{ activeFilterChips().length }}</span>
+          }
+        </button>
+
+        <span class="catalog__toolbar-spacer"></span>
+
+        <div class="sort-control" role="radiogroup" aria-label="Sort by">
+          @for (choice of sortChoices; track choice.value) {
+            <button
+              type="button"
+              class="sort-control__option"
+              role="radio"
+              [attr.aria-checked]="choice.value === sort()"
+              [class.is-active]="choice.value === sort()"
+              (click)="setSort(choice.value)"
+            >
+              {{ choice.label }}
+            </button>
+          }
+        </div>
+      </div>
+
+      @if (loading()) {
+        <app-skeleton-loader variant="card" [count]="8"></app-skeleton-loader>
+      } @else if (error()) {
+        <app-empty-state
+          icon="message-error"
+          title="Something went wrong"
+          message="We couldn't load these products. Please try again in a moment."
+        ></app-empty-state>
+      } @else if (products().length === 0) {
+        <app-empty-state
+          icon="search"
+          title="No products match those filters"
+          message="Try widening your price range or clearing a filter."
+          actionLabel="Continue shopping"
+          actionRoute="/"
+        ></app-empty-state>
+      } @else {
+        <div class="catalog__grid" [class.pulse-once]="resultsJustUpdated()">
+          @for (product of products(); track product.id) {
+            <app-product-card [product]="product"></app-product-card>
+          }
+        </div>
+
+        @if (meta() && meta()!.last_page > 1) {
+          <nav class="pagination">
+            <button type="button" [disabled]="page() === 1" (click)="goToPage(page() - 1)">Previous</button>
+            @for (n of pageNumbers(); track n) {
+              <button type="button" class="pagination__page" [class.is-active]="n === page()" (click)="goToPage(n)">
+                {{ n }}
+              </button>
+            }
+            <button type="button" [disabled]="page() === meta()!.last_page" (click)="goToPage(page() + 1)">
+              Next
+            </button>
+          </nav>
+        }
+      }
+    </section>
+  </div>
+</div>

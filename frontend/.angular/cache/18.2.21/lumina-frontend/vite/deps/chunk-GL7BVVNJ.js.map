@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../../node_modules/@ui5/webcomponents/dist/types/WrappingType.js"],
+  "sourcesContent": ["/**\n * Different types of wrapping.\n * @public\n */\nvar WrappingType;\n(function (WrappingType) {\n  /**\n   * The text will be truncated with an ellipsis.\n   * @public\n   */\n  WrappingType[\"None\"] = \"None\";\n  /**\n   * The text will wrap. The words will not be broken based on hyphenation.\n   * @public\n   */\n  WrappingType[\"Normal\"] = \"Normal\";\n})(WrappingType || (WrappingType = {}));\nexport default WrappingType;\n"],
+  "mappings": ";AAIA,IAAI;AAAA,CACH,SAAUA,eAAc;AAKvB,EAAAA,cAAa,MAAM,IAAI;AAKvB,EAAAA,cAAa,QAAQ,IAAI;AAC3B,GAAG,iBAAiB,eAAe,CAAC,EAAE;AACtC,IAAO,uBAAQ;",
+  "names": ["WrappingType"]
+}

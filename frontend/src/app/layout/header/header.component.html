@@ -1,0 +1,108 @@
+<header class="shell-header">
+  <div class="shell-header__bar page-container">
+    <button type="button" class="shell-header__hamburger" (click)="toggleMobileNav()" aria-label="Toggle navigation">
+      <ui5-icon name="menu2"></ui5-icon>
+    </button>
+
+    <a routerLink="/" class="shell-header__logo">Lumina</a>
+
+    <div class="shell-header__search">
+      <ui5-input
+        placeholder="Search products, brands, categories…"
+        show-clear-icon
+        [value]="searchQuery()"
+        (input)="onSearchInput($any($event.target).value)"
+        (keydown.enter)="submitSearch()"
+        (focusin)="suggestionsOpen.set(true)"
+        (focusout)="closeSuggestionsSoon()"
+        class="shell-header__search-input"
+      >
+        <ui5-icon slot="icon" name="search"></ui5-icon>
+      </ui5-input>
+
+      @if (suggestionsOpen() && hasSuggestions()) {
+        <div class="shell-header__suggestions">
+          @if (suggestions().categories.length) {
+            <div class="shell-header__suggestions-group">
+              <span class="shell-header__suggestions-label">Categories</span>
+              @for (cat of suggestions().categories; track cat.id) {
+                <button type="button" class="shell-header__suggestion" (click)="goToCategory(cat.slug)">
+                  <ui5-icon name="category"></ui5-icon>
+                  <span>{{ cat.name }}</span>
+                </button>
+              }
+            </div>
+          }
+          @if (suggestions().products.length) {
+            <div class="shell-header__suggestions-group">
+              <span class="shell-header__suggestions-label">Products</span>
+              @for (product of suggestions().products; track product.id) {
+                <button type="button" class="shell-header__suggestion" (click)="goToProduct(product.slug)">
+                  <img [src]="product.thumbnail" [alt]="product.name" />
+                  <span class="shell-header__suggestion-name">{{ product.name }}</span>
+                  <span class="shell-header__suggestion-price">{{ product.price | currency:'BDT':'symbol-narrow':'1.0-0' }}</span>
+                </button>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <nav class="shell-header__actions">
+      <a routerLink="/compare" class="shell-header__icon-link" title="Compare">
+        <ui5-icon name="compare"></ui5-icon>
+        @if (compareService.count() > 0) {
+          <ui5-badge color-scheme="6" class="shell-header__count">{{ compareService.count() }}</ui5-badge>
+        }
+      </a>
+      <a routerLink="/wishlist" class="shell-header__icon-link" title="Wishlist">
+        <ui5-icon name="favorite"></ui5-icon>
+        @if (wishlistService.count() > 0) {
+          <ui5-badge color-scheme="6" class="shell-header__count">{{ wishlistService.count() }}</ui5-badge>
+        }
+      </a>
+      <a routerLink="/cart" class="shell-header__icon-link" title="Cart">
+        <ui5-icon name="cart"></ui5-icon>
+        @if (cartService.itemCount() > 0) {
+          <ui5-badge color-scheme="6" class="shell-header__count" [class.pulse-once]="cartBumped()">{{ cartService.itemCount() }}</ui5-badge>
+        }
+      </a>
+
+      <div class="shell-header__account">
+        <button type="button" class="shell-header__icon-link" title="Account" (click)="toggleAccountMenu()">
+          <ui5-avatar size="XS" [initials]="authService.currentUser()?.name?.charAt(0) ?? ''">
+            @if (!authService.currentUser()) {
+              <ui5-icon name="customer"></ui5-icon>
+            }
+          </ui5-avatar>
+        </button>
+
+        @if (accountMenuOpen()) {
+          <div class="shell-header__account-menu">
+            @if (authService.currentUser()) {
+              <span class="shell-header__account-name">{{ authService.currentUser()?.name }}</span>
+              <button type="button" (click)="logout()">Log out</button>
+            } @else {
+              <a routerLink="/login" (click)="accountMenuOpen.set(false)">Log in</a>
+              <a routerLink="/register" (click)="accountMenuOpen.set(false)">Create account</a>
+            }
+          </div>
+        }
+      </div>
+    </nav>
+  </div>
+
+  <nav class="shell-nav page-container" [class.is-open]="mobileNavOpen()">
+    @for (cat of topCategories(); track cat.id) {
+      <a
+        [routerLink]="['/category', cat.slug]"
+        routerLinkActive="is-active"
+        class="shell-nav__link"
+        (click)="mobileNavOpen.set(false)"
+      >
+        {{ cat.name }}
+      </a>
+    }
+  </nav>
+</header>

@@ -1,0 +1,23 @@
+@switch (brand()) {
+  @case ('mastercard') {
+    <span class="payment-logo payment-logo--mastercard" role="img" aria-label="Mastercard">
+      <span class="payment-logo__circle payment-logo__circle--red"></span>
+      <span class="payment-logo__circle payment-logo__circle--yellow"></span>
+    </span>
+  }
+  @case ('visa') {
+    <span class="payment-logo payment-logo--visa" role="img" aria-label="Visa">VISA</span>
+  }
+  @case ('amex') {
+    <span class="payment-logo payment-logo--amex" role="img" aria-label="American Express">AMEX</span>
+  }
+  @case ('bkash') {
+    <span class="payment-logo payment-logo--bkash" role="img" aria-label="bKash">bKash</span>
+  }
+  @case ('nagad') {
+    <span class="payment-logo payment-logo--nagad" role="img" aria-label="Nagad">Nagad</span>
+  }
+  @case ('rocket') {
+    <span class="payment-logo payment-logo--rocket" role="img" aria-label="Rocket">Rocket</span>
+  }
+}

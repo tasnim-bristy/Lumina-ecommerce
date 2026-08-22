@@ -1,0 +1,73 @@
+:host {
+  display: block;
+  margin-top: 5rem;
+  background: var(--color-charcoal);
+  color: var(--color-beige);
+}
+
+.shell-footer__grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 2.5rem;
+  padding: 3.5rem 0 2.5rem;
+}
+
+.shell-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.shell-footer__logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--color-cream);
+}
+
+.shell-footer__brand p {
+  color: var(--color-beige-warm);
+  max-width: 30ch;
+  font-size: 0.9rem;
+}
+
+.shell-footer__column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.shell-footer__heading {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-sage);
+  margin-bottom: 0.25rem;
+}
+
+.shell-footer__column a {
+  color: var(--color-beige);
+  text-decoration: none;
+  font-size: 0.9rem;
+
+  &:hover {
+    color: var(--color-cream);
+  }
+}
+
+.shell-footer__note {
+  color: var(--color-beige-warm);
+  font-size: 0.85rem;
+}
+
+.shell-footer__bottom {
+  border-top: 1px solid rgba(232, 220, 200, 0.15);
+  padding: 1.25rem 0;
+  font-size: 0.8rem;
+  color: var(--color-beige-warm);
+}
+
+@media (max-width: 720px) {
+  .shell-footer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

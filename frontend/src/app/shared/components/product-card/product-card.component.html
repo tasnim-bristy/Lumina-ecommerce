@@ -1,0 +1,68 @@
+<a class="product-card hover-lift" [routerLink]="['/product', product().slug]">
+  <div class="product-card__media">
+    <img [src]="product().thumbnail" [alt]="product().name" loading="lazy" class="product-card__image" />
+
+    @if (product().is_featured) {
+      <ui5-badge color-scheme="8" class="product-card__badge">Featured</ui5-badge>
+    }
+
+    <button
+      type="button"
+      class="product-card__icon-btn product-card__icon-btn--wishlist"
+      [class.is-active]="isWishlisted()"
+      [attr.aria-pressed]="isWishlisted()"
+      title="{{ isWishlisted() ? 'Remove from wishlist' : 'Add to wishlist' }}"
+      (click)="toggleWishlist($event)"
+    >
+      <ui5-icon name="{{ isWishlisted() ? 'favorite' : 'add-favorite' }}"></ui5-icon>
+    </button>
+
+    <button
+      type="button"
+      class="product-card__icon-btn product-card__icon-btn--compare"
+      [class.is-active]="isComparing()"
+      [disabled]="!canAddToCompare()"
+      [attr.aria-pressed]="isComparing()"
+      title="{{ isComparing() ? 'Remove from compare' : 'Add to compare' }}"
+      (click)="toggleCompare($event)"
+    >
+      <ui5-icon name="compare"></ui5-icon>
+    </button>
+  </div>
+
+  <div class="product-card__body">
+    <span class="product-card__brand">{{ product().brand }}</span>
+    <h3 class="product-card__name">{{ product().name }}</h3>
+
+    <app-star-rating
+      [rating]="product().rating_avg"
+      [count]="product().rating_count"
+      size="sm"
+    ></app-star-rating>
+
+    <app-price-tag
+      [price]="product().price"
+      [compareAtPrice]="product().compare_at_price"
+      [currency]="product().currency"
+      size="sm"
+    ></app-price-tag>
+  </div>
+
+  <button
+    type="button"
+    class="product-card__add-btn"
+    [class.is-success]="justAdded()"
+    [disabled]="product().stock === 0 || isAdding()"
+    (click)="addToCart($event)"
+  >
+    @if (isAdding()) {
+      <ui5-busy-indicator active size="S"></ui5-busy-indicator>
+    } @else if (justAdded()) {
+      Added
+    } @else if (product().stock === 0) {
+      Out of stock
+    } @else {
+      Add to cart
+    }
+  </button>
+</a>

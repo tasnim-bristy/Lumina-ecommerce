@@ -1,0 +1,46 @@
+<div class="page-container auth">
+  <div class="auth-card" appScrollReveal>
+    <span class="eyebrow">Welcome back</span>
+    <h1>Log in to Lumina</h1>
+    <p class="auth-card__lede">Pick up your cart, wishlist, and order history right where you left them.</p>
+
+    @if (error()) {
+      <ui5-message-strip design="Negative" class="auth-card__message">{{ error() }}</ui5-message-strip>
+    }
+
+    <form class="auth-form" (ngSubmit)="submit()">
+      <label class="form-field">
+        <span>Email</span>
+        <ui5-input
+          type="Email"
+          required
+          [value]="email"
+          (input)="email = $any($event.target).value"
+          name="email"
+        ></ui5-input>
+      </label>
+      <label class="form-field">
+        <span>Password</span>
+        <ui5-input
+          type="Password"
+          required
+          [value]="password"
+          (input)="password = $any($event.target).value"
+          name="password"
+        ></ui5-input>
+      </label>
+
+      <button type="submit" class="btn btn--primary auth-form__submit" [disabled]="!email || !password || submitting()">
+        @if (submitting()) {
+          <ui5-busy-indicator active size="S"></ui5-busy-indicator>
+        } @else {
+          Log in
+        }
+      </button>
+    </form>
+
+    <p class="auth-card__switch">
+      New to Lumina? <a routerLink="/register">Create an account</a>
+    </p>
+  </div>
+</div>

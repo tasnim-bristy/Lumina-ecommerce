@@ -1,0 +1,78 @@
+<div class="page-container cart">
+  <h1>Your cart</h1>
+
+  @if (cartService.cart().items.length === 0) {
+    <app-empty-state
+      icon="cart"
+      title="Your cart is empty"
+      message="Everything you add will show up here, ready whenever you are."
+      actionLabel="Start shopping"
+      actionRoute="/"
+    ></app-empty-state>
+  } @else {
+    <div class="cart__layout" appScrollReveal>
+      <ul class="cart__list">
+        @for (item of cartService.cart().items; track item.id; let i = $index) {
+          <li
+            class="cart-line hover-lift"
+            [class.is-pending]="isPending(item.id)"
+            [class.is-removing]="isRemoving(item.id)"
+            [appScrollReveal]="i * 60"
+          >
+            <a [routerLink]="['/product', item.product.slug]" class="cart-line__media">
+              <img [src]="item.product.thumbnail" [alt]="item.product.name" />
+            </a>
+
+            <div class="cart-line__info">
+              <a [routerLink]="['/product', item.product.slug]" class="cart-line__name">{{ item.product.name }}</a>
+              <span class="cart-line__brand">{{ item.product.brand }}</span>
+              <span class="cart-line__unit-price">{{ item.product.price | currency:'BDT':'symbol-narrow':'1.0-0' }} each</span>
+            </div>
+
+            <div class="cart-line__stepper">
+              <button
+                type="button"
+                (click)="decrement(item.id, item.quantity)"
+                [disabled]="item.quantity <= 1 || isPending(item.id)"
+                aria-label="Decrease quantity"
+              >
+                −
+              </button>
+              <span>{{ item.quantity }}</span>
+              <button
+                type="button"
+                (click)="increment(item.id, item.quantity, item.product.stock)"
+                [disabled]="item.quantity >= item.product.stock || isPending(item.id)"
+                aria-label="Increase quantity"
+              >
+                +
+              </button>
+            </div>
+
+            <span class="cart-line__total">{{ item.line_total | currency:'BDT':'symbol-narrow':'1.0-0' }}</span>
+
+            <button
+              type="button"
+              class="cart-line__remove"
+              [disabled]="isPending(item.id)"
+              (click)="removeItem(item.id)"
+              aria-label="Remove item"
+            >
+              <ui5-icon name="delete"></ui5-icon>
+            </button>
+          </li>
+        }
+      </ul>
+
+      <aside class="cart-summary">
+        <h2>Order summary</h2>
+        <div class="cart-summary__row">
+          <span>Subtotal ({{ cartService.cart().item_count }} items)</span>
+          <span>{{ cartService.cart().subtotal | currency:'BDT':'symbol-narrow':'1.0-0' }}</span>
+        </div>
+        <p class="cart-summary__note">Shipping and taxes are calculated at checkout.</p>
+        <a routerLink="/checkout" class="btn btn--primary cart-summary__checkout">Proceed to checkout</a>
+      </aside>
+    </div>
+  }
+</div>

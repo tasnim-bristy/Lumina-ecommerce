@@ -1,0 +1,196 @@
+<section class="hero">
+  <div class="page-container hero__grid">
+    <div class="hero__copy">
+      <span class="eyebrow">Considered, not curated by algorithm</span>
+      <h1>Fewer things.<br />Better chosen.</h1>
+      <p class="hero__lede">
+        Lumina gathers electronics, fashion, home, and beauty goods that earn a place in your
+        life — vetted for craft, longevity, and quiet good taste, not just conversion rates.
+      </p>
+      <div class="hero__actions">
+        @if (heroCategory()) {
+          <a class="btn btn--primary" [routerLink]="['/category', heroCategory()!.slug]">
+            Shop {{ heroCategory()!.name }}
+          </a>
+        }
+        <a class="btn btn--ghost" routerLink="/search">Browse everything</a>
+      </div>
+    </div>
+
+    <div class="hero__art">
+      <img
+        class="hero__art-image hero__art-image--main"
+        src="assets/images/hero/hero-main.jpg"
+        alt="A considered still life of Lumina goods"
+        loading="eager"
+      />
+      <img
+        class="hero__art-image hero__art-image--accent"
+        src="assets/images/hero/hero-accent.jpg"
+        alt="Detail shot of a Lumina product"
+        loading="eager"
+      />
+    </div>
+  </div>
+</section>
+
+<section class="trust-strip">
+  <div class="page-container trust-strip__row">
+    @for (point of trustPoints; track point.label) {
+      <span class="trust-strip__item">
+        <ui5-icon [name]="point.icon"></ui5-icon>
+        {{ point.label }}
+      </span>
+    }
+  </div>
+</section>
+
+<section class="section" appScrollReveal>
+  <div class="page-container">
+    <div class="section__header">
+      <span class="eyebrow">Shop by category</span>
+      <h2>Wherever you're starting from</h2>
+    </div>
+
+    @if (categoriesLoading()) {
+      <app-skeleton-loader variant="card" [count]="6"></app-skeleton-loader>
+    } @else {
+      <div class="category-grid">
+        @for (cat of categories(); track cat.id; let i = $index) {
+          <a
+            [routerLink]="['/category', cat.slug]"
+            class="category-tile hover-lift"
+            [class.category-tile--wide]="i === 0"
+            [style.backgroundImage]="'url(' + categoryImage(cat) + ')'"
+          >
+            <span class="category-tile__scrim"></span>
+            <ui5-icon [name]="cat.icon" class="category-tile__icon"></ui5-icon>
+            <span class="category-tile__name">{{ cat.name }}</span>
+          </a>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<section class="section section--tinted" appScrollReveal>
+  <div class="page-container">
+    <div class="section__header">
+      <span class="eyebrow">Shop by mood</span>
+      <h2>Less browsing, more finding</h2>
+    </div>
+
+    <div class="mood-grid">
+      @for (tile of moodTiles; track tile.title; let i = $index) {
+        <a
+          [routerLink]="tile.routerLink"
+          [queryParams]="tile.queryParams"
+          class="mood-tile hover-lift"
+          [style.backgroundImage]="'url(' + tile.image + ')'"
+          [appScrollReveal]="i * 80"
+        >
+          <span class="mood-tile__scrim"></span>
+          <span class="mood-tile__title">{{ tile.title }}</span>
+          <span class="mood-tile__note">{{ tile.note }}</span>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section" appScrollReveal>
+  <div class="page-container">
+    <div class="section__header">
+      <span class="eyebrow">Trending now</span>
+      <h2>What people are choosing this week</h2>
+    </div>
+
+    @if (trendingLoading()) {
+      <app-skeleton-loader variant="card" [count]="4"></app-skeleton-loader>
+    } @else if (trending().length === 0) {
+      <p class="section__empty-note">Trending picks will appear here as orders come in.</p>
+    } @else {
+      <div class="product-rail">
+        @for (product of trending(); track product.id) {
+          <div class="product-rail__item">
+            <app-product-card [product]="product"></app-product-card>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<section class="section section--tinted" appScrollReveal>
+  <div class="page-container">
+    <div class="section__header">
+      <span class="eyebrow">The Edit</span>
+      <h2>Notes from the curation desk</h2>
+    </div>
+
+    <div class="edit-grid">
+      @for (blurb of editBlurbs; track blurb.title; let i = $index) {
+        <a
+          [routerLink]="blurb.routerLink"
+          [queryParams]="blurb.queryParams ?? {}"
+          class="edit-card hover-lift"
+          [class.edit-card--wide]="i === 0"
+        >
+          <span class="edit-card__media" [style.backgroundImage]="'url(' + blurb.image + ')'"></span>
+          <span class="edit-card__body">
+            <span class="edit-card__title">{{ blurb.title }}</span>
+            <span class="edit-card__note">{{ blurb.note }}</span>
+          </span>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+@if (showForYou()) {
+  <section class="section" appScrollReveal>
+    <div class="page-container">
+      <div class="section__header">
+        <span class="eyebrow">Personalized for you</span>
+        <h2>Picked from what you've browsed</h2>
+      </div>
+
+      @if (forYouLoading()) {
+        <app-skeleton-loader variant="card" [count]="4"></app-skeleton-loader>
+      } @else {
+        <div class="product-rail">
+          @for (product of forYou(); track product.id) {
+            <div class="product-rail__item">
+              <app-product-card [product]="product"></app-product-card>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </section>
+}
+
+<section class="newsletter" appScrollReveal>
+  <div class="page-container newsletter__grid">
+    <div class="newsletter__card">
+      <span class="eyebrow">Stay considered</span>
+      <h2>One email, when there's actually something worth saying.</h2>
+      <p>No daily blasts — just the occasional new arrival or restock worth knowing about.</p>
+
+      @if (newsletterSubmitted()) {
+        <p class="newsletter__confirm pulse-once">You're on the list — welcome.</p>
+      } @else {
+        <form class="newsletter__form" (ngSubmit)="submitNewsletter()">
+          <ui5-input
+            type="Email"
+            placeholder="you@example.com"
+            [value]="newsletterEmail()"
+            (input)="newsletterEmail.set($any($event.target).value)"
+            class="newsletter__input"
+          ></ui5-input>
+          <button type="submit" class="btn btn--primary">Sign up</button>
+        </form>
+      }
+    </div>
+  </div>
+</section>

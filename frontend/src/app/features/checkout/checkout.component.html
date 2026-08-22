@@ -1,0 +1,308 @@
+<div class="page-container checkout">
+  @if (confirmedOrder()) {
+    <div class="checkout__confirmation">
+      <ui5-icon name="sys-enter-2" class="checkout__confirmation-icon pulse-once"></ui5-icon>
+      <h1>Order confirmed</h1>
+      <p>
+        Thank you — order <strong>#{{ confirmedOrder()!.id }}</strong> is
+        {{ confirmedOrder()!.status }} and totals <strong>{{ confirmedOrder()!.total | currency:'BDT':'symbol-narrow':'1.0-0' }}</strong>,
+        to be paid via <strong>{{ paymentLabelFor(confirmedOrder()!.payment_method) }}</strong>.
+        A confirmation has been sent to your account.
+      </p>
+      <div class="checkout__confirmation-actions">
+        <a routerLink="/" class="btn btn--primary">Continue shopping</a>
+      </div>
+
+      @if (pastOrdersLoading()) {
+        <app-skeleton-loader variant="line" [count]="3"></app-skeleton-loader>
+      } @else if (pastOrders().length) {
+        <div class="checkout__history">
+          <h2>Your recent orders</h2>
+          <ul>
+            @for (order of pastOrders(); track order.id) {
+              <li>
+                <span>#{{ order.id }}</span>
+                <span>{{ order.created_at | date: 'mediumDate' }}</span>
+                <span>{{ order.status }}</span>
+                <span>{{ paymentLabelFor(order.payment_method) }}</span>
+                <span>{{ order.total | currency:'BDT':'symbol-narrow':'1.0-0' }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  } @else if (cartService.cart().items.length === 0) {
+    <app-empty-state
+      icon="cart"
+      title="Your cart is empty"
+      message="Add something you love before checking out."
+      actionLabel="Start shopping"
+      actionRoute="/"
+    ></app-empty-state>
+  } @else {
+    <h1>Checkout</h1>
+
+    <div class="checkout__layout">
+      <form class="checkout__form" (ngSubmit)="placeOrder()">
+        <section class="checkout__section" appScrollReveal>
+          <h2>Shipping address</h2>
+          <div class="form-grid">
+            <label class="form-field form-field--full">
+              <span>Full name</span>
+              <ui5-input
+                required
+                [value]="shippingAddress.full_name"
+                (input)="shippingAddress.full_name = $any($event.target).value"
+                name="full_name"
+              ></ui5-input>
+            </label>
+
+            <label class="form-field form-field--full">
+              <span>Mobile number</span>
+              <ui5-input
+                required
+                type="Tel"
+                placeholder="01XXXXXXXXX"
+                [value]="shippingAddress.mobile_number"
+                (input)="shippingAddress.mobile_number = $any($event.target).value"
+                name="mobile_number"
+              ></ui5-input>
+            </label>
+
+            <label class="form-field select-field">
+              <span>Division</span>
+              <select
+                required
+                [value]="shippingAddress.division"
+                (change)="onDivisionChange($any($event.target).value)"
+                name="division"
+              >
+                <option value="" disabled>Select division</option>
+                @for (division of divisions; track division.name) {
+                  <option [value]="division.name">{{ division.name }}</option>
+                }
+              </select>
+            </label>
+
+            <label class="form-field select-field">
+              <span>District</span>
+              <select
+                required
+                [disabled]="!shippingAddress.division"
+                [value]="shippingAddress.district"
+                (change)="onDistrictChange($any($event.target).value)"
+                name="district"
+              >
+                <option value="" disabled>
+                  {{ shippingAddress.division ? 'Select district' : 'Select division first' }}
+                </option>
+                @for (district of availableDistricts(); track district.name) {
+                  <option [value]="district.name">{{ district.name }}</option>
+                }
+              </select>
+            </label>
+
+            <label class="form-field select-field">
+              <span>Upazila / Thana</span>
+              <select
+                required
+                [disabled]="!shippingAddress.district"
+                [value]="shippingAddress.upazila"
+                (change)="shippingAddress.upazila = $any($event.target).value"
+                name="upazila"
+              >
+                <option value="" disabled>
+                  {{ shippingAddress.district ? 'Select upazila / thana' : 'Select district first' }}
+                </option>
+                @for (upazila of availableUpazilas(); track upazila) {
+                  <option [value]="upazila">{{ upazila }}</option>
+                }
+              </select>
+            </label>
+
+            <label class="form-field">
+              <span>Postal code</span>
+              <ui5-input
+                required
+                placeholder="1216"
+                [value]="shippingAddress.postal_code"
+                (input)="shippingAddress.postal_code = $any($event.target).value"
+                name="postal_code"
+              ></ui5-input>
+            </label>
+
+            <label class="form-field form-field--full">
+              <span>Area / locality</span>
+              <ui5-input
+                required
+                placeholder="e.g. Dhanmondi, Uttara Sector 7"
+                [value]="shippingAddress.area"
+                (input)="shippingAddress.area = $any($event.target).value"
+                name="area"
+              ></ui5-input>
+            </label>
+
+            <label class="form-field form-field--full">
+              <span>House / road / street address</span>
+              <ui5-input
+                required
+                placeholder="e.g. House 12, Road 5, Block C"
+                [value]="shippingAddress.address"
+                (input)="shippingAddress.address = $any($event.target).value"
+                name="address"
+              ></ui5-input>
+            </label>
+
+            <div class="form-field form-field--full">
+              <span>Country</span>
+              <div class="country-chip">
+                <ui5-icon name="sys-enter-2"></ui5-icon>
+                Bangladesh
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="checkout__section" [appScrollReveal]="120">
+          <h2>Payment method</h2>
+          <p class="checkout__payment-note">
+            This is a demo checkout — no real payment is processed.
+          </p>
+
+          <div class="payment-grid">
+            @for (method of paymentMethods; track method.id) {
+              <button
+                type="button"
+                class="payment-card"
+                [class.is-active]="paymentMethod() === method.id"
+                [class.pulse-once]="justSelectedPayment() === method.id"
+                [attr.aria-pressed]="paymentMethod() === method.id"
+                (click)="setPaymentMethod(method.id)"
+              >
+                <span class="payment-card__check">
+                  <ui5-icon name="accept"></ui5-icon>
+                </span>
+
+                <span class="payment-card__marks">
+                  @if (method.networks) {
+                    @for (network of method.networks; track network) {
+                      <app-payment-logo [brand]="network"></app-payment-logo>
+                    }
+                  } @else if (method.category === 'mobile-wallet') {
+                    <app-payment-logo [brand]="method.id"></app-payment-logo>
+                  } @else {
+                    <ui5-icon name="shipping-status" class="payment-card__icon"></ui5-icon>
+                  }
+                </span>
+
+                <span class="payment-card__label">{{ method.label }}</span>
+                <span class="payment-card__description">{{ method.description }}</span>
+              </button>
+            }
+          </div>
+
+          <div class="payment-details" [class.is-collapsed]="!showCardFields()">
+            <div class="payment-details__inner form-grid">
+              <label class="form-field form-field--full">
+                <span>Card number</span>
+                <ui5-input
+                  placeholder="4242 4242 4242 4242"
+                  [value]="mockCardNumber"
+                  (input)="mockCardNumber = $any($event.target).value"
+                  name="cardNumber"
+                ></ui5-input>
+              </label>
+              <label class="form-field">
+                <span>Expiry (MM/YY)</span>
+                <ui5-input
+                  placeholder="12/29"
+                  [value]="mockCardExpiry"
+                  (input)="mockCardExpiry = $any($event.target).value"
+                  name="cardExpiry"
+                ></ui5-input>
+              </label>
+              <label class="form-field">
+                <span>CVC</span>
+                <ui5-input
+                  placeholder="123"
+                  [value]="mockCardCvc"
+                  (input)="mockCardCvc = $any($event.target).value"
+                  name="cardCvc"
+                ></ui5-input>
+              </label>
+            </div>
+          </div>
+
+          <div class="payment-details" [class.is-collapsed]="!showWalletField()">
+            <div class="payment-details__inner">
+              <label class="form-field form-field--full">
+                <span>{{ selectedMethod().label }} account number</span>
+                <ui5-input
+                  placeholder="01XXXXXXXXX"
+                  type="Tel"
+                  [value]="mockWalletNumber"
+                  (input)="mockWalletNumber = $any($event.target).value"
+                  name="walletNumber"
+                ></ui5-input>
+              </label>
+              <p class="payment-details__hint">
+                You'll get a payment confirmation prompt from {{ selectedMethod().label }} on this number.
+              </p>
+            </div>
+          </div>
+
+          @if (selectedMethod().category === 'cod') {
+            <p class="payment-details__hint payment-details__hint--cod">
+              Pay in cash when your order is delivered — please have the exact amount ready for our courier.
+            </p>
+          }
+        </section>
+
+        @if (submitError()) {
+          <ui5-message-strip design="Negative">{{ submitError() }}</ui5-message-strip>
+        }
+
+        <button type="submit" class="btn btn--primary checkout__submit" [disabled]="!isFormValid || submitting()">
+          @if (submitting()) {
+            <ui5-busy-indicator active size="S"></ui5-busy-indicator>
+          } @else {
+            Place order — {{ cartService.cart().subtotal | currency:'BDT':'symbol-narrow':'1.0-0' }}
+          }
+        </button>
+      </form>
+
+      <aside class="checkout-summary">
+        <h2>Order summary</h2>
+        <ul>
+          @for (item of cartService.cart().items; track item.id) {
+            <li>
+              <span>{{ item.quantity }}&times; {{ item.product.name }}</span>
+              <span>{{ item.line_total | currency:'BDT':'symbol-narrow':'1.0-0' }}</span>
+            </li>
+          }
+        </ul>
+        <div class="checkout-summary__total">
+          <span>Total</span>
+          <span>{{ cartService.cart().subtotal | currency:'BDT':'symbol-narrow':'1.0-0' }}</span>
+        </div>
+
+        <div class="checkout-summary__payment">
+          <span class="checkout-summary__payment-label">Paying with</span>
+          <span class="checkout-summary__payment-value">
+            @if (selectedMethod().category === 'mobile-wallet') {
+              <app-payment-logo [brand]="selectedMethod().id"></app-payment-logo>
+            } @else if (selectedMethod().networks) {
+              @for (network of selectedMethod().networks; track network) {
+                <app-payment-logo [brand]="network"></app-payment-logo>
+              }
+            } @else {
+              <ui5-icon name="shipping-status"></ui5-icon>
+            }
+            {{ selectedMethod().label }}
+          </span>
+        </div>
+      </aside>
+    </div>
+  }
+</div>

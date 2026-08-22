@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/core/services/category.service.ts"],
+  "sourcesContent": ["import { HttpClient } from '@angular/common/http';\nimport { Injectable, inject } from '@angular/core';\nimport { Observable, map, shareReplay } from 'rxjs';\nimport { environment } from '../../../environments/environment';\nimport { ApiResource } from '../models/common.model';\nimport { Category } from '../models/category.model';\n\n@Injectable({ providedIn: 'root' })\nexport class CategoryService {\n  private readonly http = inject(HttpClient);\n  private readonly base = `${environment.apiUrl}/categories`;\n\n  /** The nested category tree rarely changes within a session; share one in-flight/last request. */\n  private readonly treeCache$ = this.http\n    .get<ApiResource<Category[]> | Category[]>(this.base)\n    .pipe(\n      map((res) => (Array.isArray(res) ? res : res.data)),\n      shareReplay({ bufferSize: 1, refCount: false }),\n    );\n\n  getTree(): Observable<Category[]> {\n    return this.treeCache$;\n  }\n}\n"],
+  "mappings": ";;;;;;;;;;AAQM,IAAO,kBAAP,MAAO,iBAAe;EAD5B,cAAA;AAEmB,SAAA,OAAO,OAAO,UAAU;AACxB,SAAA,OAAO,GAAG,YAAY,MAAM;AAG5B,SAAA,aAAa,KAAK,KAChC,IAA0C,KAAK,IAAI,EACnD,KACC,IAAI,CAAC,QAAS,MAAM,QAAQ,GAAG,IAAI,MAAM,IAAI,IAAK,GAClD,YAAY,EAAE,YAAY,GAAG,UAAU,MAAK,CAAE,CAAC;;EAGnD,UAAO;AACL,WAAO,KAAK;EACd;;;uCAdW,kBAAe;IAAA;EAAA;;4EAAf,kBAAe,SAAf,iBAAe,WAAA,YADF,OAAM,CAAA;EAAA;;",
+  "names": []
+}

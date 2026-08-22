@@ -1,0 +1,336 @@
+@if (loading()) {
+  <div class="page-container pd-skeleton">
+    <app-skeleton-loader variant="image"></app-skeleton-loader>
+    <app-skeleton-loader variant="line" [count]="6"></app-skeleton-loader>
+  </div>
+} @else if (notFound() || !product()) {
+  <div class="page-container">
+    <app-empty-state
+      icon="alert"
+      title="We couldn't find that product"
+      message="It may have sold out for good or moved. Take a look at everything else we carry."
+      actionLabel="Continue shopping"
+      actionRoute="/"
+    ></app-empty-state>
+  </div>
+} @else {
+  <div class="page-container pd">
+    <div class="pd__top">
+      <div class="pd__gallery">
+        <div
+          class="pd__gallery-main"
+          (mouseenter)="zoomActive.set(true)"
+          (mouseleave)="zoomActive.set(false)"
+          (mousemove)="onGalleryMouseMove($event)"
+          (click)="openLightbox()"
+        >
+          <img [src]="product()!.images[selectedImageIndex()] ?? product()!.thumbnail" [alt]="product()!.name" />
+          <div
+            class="pd__gallery-zoom"
+            [class.is-active]="zoomActive()"
+            [style.backgroundImage]="'url(' + (product()!.images[selectedImageIndex()] ?? product()!.thumbnail) + ')'"
+            [style.backgroundPosition]="zoomPosition().x + '% ' + zoomPosition().y + '%'"
+          ></div>
+          <span class="pd__gallery-zoom-hint">
+            <ui5-icon name="zoom-in"></ui5-icon>
+          </span>
+        </div>
+        @if (product()!.images.length > 1) {
+          <div class="pd__gallery-thumbs">
+            @for (image of product()!.images; track image; let i = $index) {
+              <button
+                type="button"
+                class="pd__gallery-thumb"
+                [class.is-active]="i === selectedImageIndex()"
+                (click)="selectImage(i)"
+              >
+                <img [src]="image" [alt]="product()!.name + ' view ' + (i + 1)" />
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="pd__info">
+        <span class="eyebrow">{{ product()!.brand }}</span>
+        <h1>{{ product()!.name }}</h1>
+
+        <app-star-rating
+          [rating]="product()!.rating_avg"
+          [count]="product()!.rating_count"
+          size="md"
+        ></app-star-rating>
+
+        <app-price-tag
+          [price]="product()!.price"
+          [compareAtPrice]="product()!.compare_at_price"
+          [currency]="product()!.currency"
+          size="lg"
+        ></app-price-tag>
+
+        <p class="pd__description">{{ product()!.description }}</p>
+
+        <div class="pd__stock">
+          @if (product()!.stock > 0) {
+            <ui5-icon name="sys-enter-2" class="pd__stock-icon pd__stock-icon--in"></ui5-icon>
+            <span>In stock — {{ product()!.stock }} available</span>
+          } @else {
+            <ui5-icon name="sys-cancel-2" class="pd__stock-icon pd__stock-icon--out"></ui5-icon>
+            <span>Currently out of stock</span>
+          }
+        </div>
+
+        <div class="pd__purchase-row">
+          <div class="pd__stepper">
+            <button type="button" (click)="decrementQuantity()" [disabled]="quantity() <= 1" aria-label="Decrease quantity">−</button>
+            <span class="pd__stepper-value">{{ quantity() }}</span>
+            <button
+              type="button"
+              (click)="incrementQuantity()"
+              [disabled]="quantity() >= product()!.stock"
+              aria-label="Increase quantity"
+            >
+              +
+            </button>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn--primary pd__add-to-cart"
+            [class.is-success]="justAddedToCart()"
+            [disabled]="product()!.stock === 0 || isAddingToCart()"
+            (click)="addToCart()"
+          >
+            @if (isAddingToCart()) {
+              <ui5-busy-indicator active size="S"></ui5-busy-indicator>
+            } @else if (justAddedToCart()) {
+              Added to cart
+            } @else {
+              Add to cart
+            }
+          </button>
+        </div>
+
+        @if (goesWellWith().length) {
+          <div class="pd__goes-well">
+            <div class="pd__goes-well-header">
+              <span>Goes well with</span>
+              <button type="button" class="pd__goes-well-add-all" [disabled]="addingAllGoesWellWith()" (click)="addAllGoesWellWith()">
+                @if (addingAllGoesWellWith()) {
+                  <ui5-busy-indicator active size="S"></ui5-busy-indicator>
+                } @else {
+                  Add all {{ goesWellWith().length }}
+                }
+              </button>
+            </div>
+            <div class="pd__goes-well-list">
+              @for (item of goesWellWith(); track item.id) {
+                <a [routerLink]="['/product', item.slug]" class="pd__goes-well-item">
+                  <img [src]="item.thumbnail" [alt]="item.name" />
+                  <span class="pd__goes-well-name">{{ item.name }}</span>
+                  <app-price-tag [price]="item.price" [currency]="item.currency" size="sm"></app-price-tag>
+                </a>
+              }
+            </div>
+          </div>
+        }
+
+        <div class="pd__secondary-actions">
+          <button type="button" class="pd__toggle-btn" [class.is-active]="isWishlisted()" (click)="toggleWishlist()">
+            <ui5-icon [name]="isWishlisted() ? 'favorite' : 'add-favorite'"></ui5-icon>
+            {{ isWishlisted() ? 'Saved to wishlist' : 'Add to wishlist' }}
+          </button>
+          <button
+            type="button"
+            class="pd__toggle-btn"
+            [class.is-active]="isComparing()"
+            [disabled]="!canAddToCompare()"
+            (click)="toggleCompare()"
+          >
+            <ui5-icon name="compare"></ui5-icon>
+            {{ isComparing() ? 'Added to compare' : 'Add to compare' }}
+          </button>
+        </div>
+
+        @if (attributeEntries().length) {
+          <table class="pd__attributes">
+            <tbody>
+              @for (entry of attributeEntries(); track entry[0]) {
+                <tr>
+                  <th>{{ entry[0] }}</th>
+                  <td>{{ entry[1] }}</td>
+                </tr>
+              }
+              <tr>
+                <th>SKU</th>
+                <td>{{ product()!.sku }}</td>
+              </tr>
+            </tbody>
+          </table>
+        }
+      </div>
+    </div>
+
+    <section class="pd__reviews">
+      <h2>Ratings &amp; reviews</h2>
+
+      <div class="pd__reviews-summary">
+        <div class="pd__reviews-average">
+          <span class="pd__reviews-average-number">{{ product()!.reviews_summary.avg.toFixed(1) }}</span>
+          <app-star-rating [rating]="product()!.reviews_summary.avg" size="md"></app-star-rating>
+          <span class="pd__reviews-count">{{ product()!.reviews_summary.count }} reviews</span>
+        </div>
+        <div class="pd__reviews-breakdown">
+          @for (bar of ratingBars(); track bar.stars) {
+            <div class="pd__reviews-bar-row" [appScrollReveal]="(5 - bar.stars) * 90">
+              <span>{{ bar.stars }}★</span>
+              <div class="pd__reviews-bar-track">
+                <div class="pd__reviews-bar-fill" [style.width.%]="bar.percent"></div>
+              </div>
+              <span class="pd__reviews-bar-count">{{ bar.count }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="pd__review-form">
+        @if (authService.isAuthenticated()) {
+          <h3>Write a review</h3>
+          @if (reviewSubmitted()) {
+            <ui5-message-strip design="Positive" class="pd__review-message">
+              Thanks — your review has been posted.
+            </ui5-message-strip>
+          }
+          @if (reviewSubmitError()) {
+            <ui5-message-strip design="Negative" class="pd__review-message">
+              {{ reviewSubmitError() }}
+            </ui5-message-strip>
+          }
+          <div class="pd__review-stars">
+            @for (stars of [1, 2, 3, 4, 5]; track stars) {
+              <button type="button" (click)="setReviewRating(stars)" [attr.aria-label]="stars + ' stars'">
+                <ui5-icon
+                  name="favorite"
+                  [class.is-filled]="stars <= newReviewRating()"
+                  class="pd__review-star"
+                ></ui5-icon>
+              </button>
+            }
+          </div>
+          <ui5-textarea
+            placeholder="Share what you thought — fit, quality, how it's held up…"
+            rows="3"
+            [value]="newReviewComment()"
+            (input)="newReviewComment.set($any($event.target).value)"
+            class="pd__review-textarea"
+          ></ui5-textarea>
+          <button
+            type="button"
+            class="btn btn--primary"
+            [disabled]="newReviewRating() === 0 || submittingReview()"
+            (click)="submitReview()"
+          >
+            @if (submittingReview()) {
+              <ui5-busy-indicator active size="S"></ui5-busy-indicator>
+            } @else {
+              Submit review
+            }
+          </button>
+        } @else {
+          <p class="pd__review-login-prompt">
+            <a routerLink="/login">Log in</a> to write a review for this product.
+          </p>
+        }
+      </div>
+
+      @if (reviewsLoading()) {
+        <app-skeleton-loader variant="line" [count]="3"></app-skeleton-loader>
+      } @else if (reviews() && reviews()!.data.length === 0) {
+        <p class="pd__no-reviews">No reviews yet — be the first to share your experience.</p>
+      } @else if (reviews()) {
+        <ul class="pd__review-list">
+          @for (review of reviews()!.data; track review.id) {
+            <li class="pd__review">
+              <div class="pd__review-header">
+                <span class="pd__review-author">{{ review.user_name }}</span>
+                <app-star-rating [rating]="review.rating" size="sm"></app-star-rating>
+              </div>
+              <p class="pd__review-comment">{{ review.comment }}</p>
+              <span class="pd__review-date">{{ review.created_at | date: 'mediumDate' }}</span>
+            </li>
+          }
+        </ul>
+
+        @if (reviews()!.meta.last_page > 1) {
+          <nav class="pagination">
+            @for (n of reviewPageNumbers(); track n) {
+              <button
+                type="button"
+                class="pagination__page"
+                [class.is-active]="n === reviews()!.meta.current_page"
+                (click)="loadReviewsPage(n)"
+              >
+                {{ n }}
+              </button>
+            }
+          </nav>
+        }
+      }
+    </section>
+
+    @if (similarLoading()) {
+      <section class="pd__similar">
+        <h2>You might also like</h2>
+        <app-skeleton-loader variant="card" [count]="4"></app-skeleton-loader>
+      </section>
+    } @else if (similarProducts().length) {
+      <section class="pd__similar">
+        <h2>You might also like</h2>
+        <div class="product-rail">
+          @for (item of similarProducts(); track item.id) {
+            <div class="product-rail__item">
+              <app-product-card [product]="item"></app-product-card>
+            </div>
+          }
+        </div>
+      </section>
+    }
+
+    @if (lightboxOpen()) {
+      <div class="pd__lightbox" (click)="closeLightbox()">
+        <button type="button" class="pd__lightbox-close" (click)="closeLightbox()" aria-label="Close">
+          <ui5-icon name="decline"></ui5-icon>
+        </button>
+
+        @if (product()!.images.length > 1) {
+          <button
+            type="button"
+            class="pd__lightbox-nav pd__lightbox-nav--prev"
+            (click)="$event.stopPropagation(); lightboxPrev()"
+            aria-label="Previous image"
+          >
+            <ui5-icon name="slim-arrow-left"></ui5-icon>
+          </button>
+        }
+
+        <img
+          class="pd__lightbox-image"
+          [src]="product()!.images[selectedImageIndex()] ?? product()!.thumbnail"
+          [alt]="product()!.name"
+          (click)="$event.stopPropagation()"
+        />
+
+        @if (product()!.images.length > 1) {
+          <button
+            type="button"
+            class="pd__lightbox-nav pd__lightbox-nav--next"
+            (click)="$event.stopPropagation(); lightboxNext()"
+            aria-label="Next image"
+          >
+            <ui5-icon name="slim-arrow-right"></ui5-icon>
+          </button>
+        }
+      </div>
+    }
+  </div>
+}

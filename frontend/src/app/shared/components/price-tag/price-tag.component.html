@@ -1,0 +1,7 @@
+<span class="price-tag" [class]="'price-tag--' + size()">
+  <span class="price-tag__current">{{ formatted(price()) }}</span>
+  @if (isOnSale()) {
+    <span class="price-tag__compare">{{ formatted(compareAtPrice()!) }}</span>
+    <span class="price-tag__badge">-{{ discountPercent() }}%</span>
+  }
+</span>
