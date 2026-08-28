@@ -1,7 +1,4 @@
 import {
-  shouldIgnoreCustomElement
-} from "./chunk-XQ36JZLT.js";
-import {
   EventProvider_default,
   VersionInfo_default,
   boot,
@@ -24,7 +21,10 @@ import {
   renderImmediately,
   shouldPreloadLinks,
   shouldUseLinks
-} from "./chunk-KIL2GIL2.js";
+} from "./chunk-JASJJZVS.js";
+import {
+  shouldIgnoreCustomElement
+} from "./chunk-XQ36JZLT.js";
 import {
   __async,
   __spreadProps,
@@ -1709,4 +1709,4 @@ export {
   customElement_default,
   property_default
 };
-//# sourceMappingURL=chunk-45WMDHUI.js.map
+//# sourceMappingURL=chunk-2MNVO72Z.js.map

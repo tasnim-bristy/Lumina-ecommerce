@@ -1,12 +1,12 @@
 import {
   ICON_DECLINE
-} from "./chunk-VO2NJHAL.js";
+} from "./chunk-HFFNPAU7.js";
 import {
   registerIcon
-} from "./chunk-45EM4FL4.js";
+} from "./chunk-3YXAI4SY.js";
 import {
   isLegacyThemeFamily
-} from "./chunk-KIL2GIL2.js";
+} from "./chunk-JASJJZVS.js";
 
 // node_modules/@ui5/webcomponents-icons/dist/v4/decline.js
 var name = "decline";
@@ -40,4 +40,4 @@ registerIcon(name2, {
 
 // node_modules/@ui5/webcomponents-icons/dist/decline.js
 var pathData3 = isLegacyThemeFamily() ? pathData : pathData2;
-//# sourceMappingURL=chunk-IV4B6FMY.js.map
+//# sourceMappingURL=chunk-KLO5MOPM.js.map

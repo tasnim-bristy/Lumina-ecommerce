@@ -1,9 +1,9 @@
 import {
   registerIcon
-} from "./chunk-45EM4FL4.js";
+} from "./chunk-3YXAI4SY.js";
 import {
   isLegacyThemeFamily
-} from "./chunk-KIL2GIL2.js";
+} from "./chunk-JASJJZVS.js";
 
 // node_modules/@ui5/webcomponents-icons/dist/v4/alert.js
 var name = "alert";
@@ -33,4 +33,4 @@ registerIcon(name2, {
 
 // node_modules/@ui5/webcomponents-icons/dist/alert.js
 var pathData3 = isLegacyThemeFamily() ? pathData : pathData2;
-//# sourceMappingURL=chunk-P63L4E64.js.map
+//# sourceMappingURL=chunk-OQHTKXE6.js.map

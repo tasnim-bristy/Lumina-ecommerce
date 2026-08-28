@@ -5,7 +5,7 @@ import {
   UI5Element_default,
   customElement_default,
   property_default
-} from "./chunk-45WMDHUI.js";
+} from "./chunk-2MNVO72Z.js";
 
 // node_modules/@ui5/webcomponents/dist/Option.js
 var __decorate = function(decorators, target, key, desc) {
@@ -46,4 +46,4 @@ var Option_default = Option;
 export {
   Option_default
 };
-//# sourceMappingURL=chunk-3IT6MMFG.js.map
+//# sourceMappingURL=chunk-U2HKVQIR.js.map

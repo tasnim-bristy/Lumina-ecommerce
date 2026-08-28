@@ -1,13 +1,13 @@
 import {
   ResizeHandler_default
-} from "./chunk-FMNTYMAV.js";
-import {
-  AVATAR_TOOLTIP
-} from "./chunk-MKUK4J7G.js";
+} from "./chunk-UQ5I4VPN.js";
 import {
   Icon_default,
   event_default
-} from "./chunk-4CCMOZQP.js";
+} from "./chunk-U3UACDRZ.js";
+import {
+  AVATAR_TOOLTIP
+} from "./chunk-MKUK4J7G.js";
 import {
   LitRenderer_default,
   effectiveHtml,
@@ -17,7 +17,7 @@ import {
   parameters_bundle_css_default,
   parameters_bundle_css_default2,
   scopeTag
-} from "./chunk-S2KYTLGV.js";
+} from "./chunk-BK2PCNJ4.js";
 import {
   slot_default
 } from "./chunk-SRQLSZPJ.js";
@@ -25,19 +25,19 @@ import {
   UI5Element_default,
   customElement_default,
   property_default
-} from "./chunk-45WMDHUI.js";
+} from "./chunk-2MNVO72Z.js";
 import {
   registerIcon
-} from "./chunk-45EM4FL4.js";
+} from "./chunk-3YXAI4SY.js";
 import {
   getI18nBundle
-} from "./chunk-5RZ2QJVB.js";
+} from "./chunk-CQWP6VSU.js";
 import {
   isDesktop,
   isLegacyThemeFamily,
   registerThemePropertiesLoader,
   renderFinished
-} from "./chunk-KIL2GIL2.js";
+} from "./chunk-JASJJZVS.js";
 import {
   __async
 } from "./chunk-5K356HEJ.js";
@@ -348,4 +348,4 @@ var Avatar_default = Avatar;
 export {
   Avatar_default
 };
-//# sourceMappingURL=chunk-FASRCGJ2.js.map
+//# sourceMappingURL=chunk-6IE2SFHB.js.map

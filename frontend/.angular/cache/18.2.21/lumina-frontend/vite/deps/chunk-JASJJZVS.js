@@ -4,170 +4,6 @@ import {
   __spreadValues
 } from "./chunk-5K356HEJ.js";
 
-// node_modules/@ui5/webcomponents-base/dist/Device.js
-var isSSR = typeof document === "undefined";
-var internals = {
-  get userAgent() {
-    if (isSSR) {
-      return "";
-    }
-    return navigator.userAgent;
-  },
-  get touch() {
-    if (isSSR) {
-      return false;
-    }
-    return "ontouchstart" in window || navigator.maxTouchPoints > 0;
-  },
-  get ie() {
-    if (isSSR) {
-      return false;
-    }
-    return /(msie|trident)/i.test(internals.userAgent);
-  },
-  get chrome() {
-    if (isSSR) {
-      return false;
-    }
-    return !internals.ie && /(Chrome|CriOS)/.test(internals.userAgent);
-  },
-  get firefox() {
-    if (isSSR) {
-      return false;
-    }
-    return /Firefox/.test(internals.userAgent);
-  },
-  get safari() {
-    if (isSSR) {
-      return false;
-    }
-    return !internals.ie && !internals.chrome && /(Version|PhantomJS)\/(\d+\.\d+).*Safari/.test(internals.userAgent);
-  },
-  get webkit() {
-    if (isSSR) {
-      return false;
-    }
-    return !internals.ie && /webkit/.test(internals.userAgent);
-  },
-  get windows() {
-    if (isSSR) {
-      return false;
-    }
-    return navigator.platform.indexOf("Win") !== -1;
-  },
-  get macOS() {
-    if (isSSR) {
-      return false;
-    }
-    return !!navigator.userAgent.match(/Macintosh|Mac OS X/i);
-  },
-  get iOS() {
-    if (isSSR) {
-      return false;
-    }
-    return !!navigator.platform.match(/iPhone|iPad|iPod/) || !!(internals.userAgent.match(/Mac/) && "ontouchend" in document);
-  },
-  get android() {
-    if (isSSR) {
-      return false;
-    }
-    return !internals.windows && /Android/.test(internals.userAgent);
-  },
-  get androidPhone() {
-    if (isSSR) {
-      return false;
-    }
-    return internals.android && /(?=android)(?=.*mobile)/i.test(internals.userAgent);
-  },
-  get ipad() {
-    if (isSSR) {
-      return false;
-    }
-    return /ipad/i.test(internals.userAgent) || /Macintosh/i.test(internals.userAgent) && "ontouchend" in document;
-  }
-};
-var windowsVersion;
-var webkitVersion;
-var tablet;
-var isWindows8OrAbove = () => {
-  if (isSSR) {
-    return false;
-  }
-  if (!internals.windows) {
-    return false;
-  }
-  if (windowsVersion === void 0) {
-    const matches = internals.userAgent.match(/Windows NT (\d+).(\d)/);
-    windowsVersion = matches ? parseFloat(matches[1]) : 0;
-  }
-  return windowsVersion >= 8;
-};
-var isWebkit537OrAbove = () => {
-  if (isSSR) {
-    return false;
-  }
-  if (!internals.webkit) {
-    return false;
-  }
-  if (webkitVersion === void 0) {
-    const matches = internals.userAgent.match(/(webkit)[ /]([\w.]+)/);
-    webkitVersion = matches ? parseFloat(matches[1]) : 0;
-  }
-  return webkitVersion >= 537.1;
-};
-var detectTablet = () => {
-  if (isSSR) {
-    return false;
-  }
-  if (tablet !== void 0) {
-    return;
-  }
-  if (internals.ipad) {
-    tablet = true;
-    return;
-  }
-  if (internals.touch) {
-    if (isWindows8OrAbove()) {
-      tablet = true;
-      return;
-    }
-    if (internals.chrome && internals.android) {
-      tablet = !/Mobile Safari\/[.0-9]+/.test(internals.userAgent);
-      return;
-    }
-    let densityFactor = window.devicePixelRatio ? window.devicePixelRatio : 1;
-    if (internals.android && isWebkit537OrAbove()) {
-      densityFactor = 1;
-    }
-    tablet = Math.min(window.screen.width / densityFactor, window.screen.height / densityFactor) >= 600;
-    return;
-  }
-  tablet = internals.ie && internals.userAgent.indexOf("Touch") !== -1 || internals.android && !internals.androidPhone;
-};
-var supportsTouch = () => internals.touch;
-var isSafari = () => internals.safari;
-var isChrome = () => internals.chrome;
-var isTablet = () => {
-  detectTablet();
-  return (internals.touch || isWindows8OrAbove()) && tablet;
-};
-var isPhone = () => {
-  detectTablet();
-  return internals.touch && !tablet;
-};
-var isDesktop = () => {
-  if (isSSR) {
-    return false;
-  }
-  return !isTablet() && !isPhone() || isWindows8OrAbove();
-};
-var isIOS = () => {
-  return internals.iOS;
-};
-var isAndroid = () => {
-  return internals.android || internals.androidPhone;
-};
-
 // node_modules/@ui5/webcomponents-base/dist/FeaturesRegistry.js
 var features = /* @__PURE__ */ new Map();
 var registerFeature = (name, feature) => {
@@ -590,6 +426,170 @@ var reRenderAllUI5Elements = (filters) => __async(void 0, null, function* () {
   });
   yield renderFinished();
 });
+
+// node_modules/@ui5/webcomponents-base/dist/Device.js
+var isSSR = typeof document === "undefined";
+var internals = {
+  get userAgent() {
+    if (isSSR) {
+      return "";
+    }
+    return navigator.userAgent;
+  },
+  get touch() {
+    if (isSSR) {
+      return false;
+    }
+    return "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  },
+  get ie() {
+    if (isSSR) {
+      return false;
+    }
+    return /(msie|trident)/i.test(internals.userAgent);
+  },
+  get chrome() {
+    if (isSSR) {
+      return false;
+    }
+    return !internals.ie && /(Chrome|CriOS)/.test(internals.userAgent);
+  },
+  get firefox() {
+    if (isSSR) {
+      return false;
+    }
+    return /Firefox/.test(internals.userAgent);
+  },
+  get safari() {
+    if (isSSR) {
+      return false;
+    }
+    return !internals.ie && !internals.chrome && /(Version|PhantomJS)\/(\d+\.\d+).*Safari/.test(internals.userAgent);
+  },
+  get webkit() {
+    if (isSSR) {
+      return false;
+    }
+    return !internals.ie && /webkit/.test(internals.userAgent);
+  },
+  get windows() {
+    if (isSSR) {
+      return false;
+    }
+    return navigator.platform.indexOf("Win") !== -1;
+  },
+  get macOS() {
+    if (isSSR) {
+      return false;
+    }
+    return !!navigator.userAgent.match(/Macintosh|Mac OS X/i);
+  },
+  get iOS() {
+    if (isSSR) {
+      return false;
+    }
+    return !!navigator.platform.match(/iPhone|iPad|iPod/) || !!(internals.userAgent.match(/Mac/) && "ontouchend" in document);
+  },
+  get android() {
+    if (isSSR) {
+      return false;
+    }
+    return !internals.windows && /Android/.test(internals.userAgent);
+  },
+  get androidPhone() {
+    if (isSSR) {
+      return false;
+    }
+    return internals.android && /(?=android)(?=.*mobile)/i.test(internals.userAgent);
+  },
+  get ipad() {
+    if (isSSR) {
+      return false;
+    }
+    return /ipad/i.test(internals.userAgent) || /Macintosh/i.test(internals.userAgent) && "ontouchend" in document;
+  }
+};
+var windowsVersion;
+var webkitVersion;
+var tablet;
+var isWindows8OrAbove = () => {
+  if (isSSR) {
+    return false;
+  }
+  if (!internals.windows) {
+    return false;
+  }
+  if (windowsVersion === void 0) {
+    const matches = internals.userAgent.match(/Windows NT (\d+).(\d)/);
+    windowsVersion = matches ? parseFloat(matches[1]) : 0;
+  }
+  return windowsVersion >= 8;
+};
+var isWebkit537OrAbove = () => {
+  if (isSSR) {
+    return false;
+  }
+  if (!internals.webkit) {
+    return false;
+  }
+  if (webkitVersion === void 0) {
+    const matches = internals.userAgent.match(/(webkit)[ /]([\w.]+)/);
+    webkitVersion = matches ? parseFloat(matches[1]) : 0;
+  }
+  return webkitVersion >= 537.1;
+};
+var detectTablet = () => {
+  if (isSSR) {
+    return false;
+  }
+  if (tablet !== void 0) {
+    return;
+  }
+  if (internals.ipad) {
+    tablet = true;
+    return;
+  }
+  if (internals.touch) {
+    if (isWindows8OrAbove()) {
+      tablet = true;
+      return;
+    }
+    if (internals.chrome && internals.android) {
+      tablet = !/Mobile Safari\/[.0-9]+/.test(internals.userAgent);
+      return;
+    }
+    let densityFactor = window.devicePixelRatio ? window.devicePixelRatio : 1;
+    if (internals.android && isWebkit537OrAbove()) {
+      densityFactor = 1;
+    }
+    tablet = Math.min(window.screen.width / densityFactor, window.screen.height / densityFactor) >= 600;
+    return;
+  }
+  tablet = internals.ie && internals.userAgent.indexOf("Touch") !== -1 || internals.android && !internals.androidPhone;
+};
+var supportsTouch = () => internals.touch;
+var isSafari = () => internals.safari;
+var isChrome = () => internals.chrome;
+var isTablet = () => {
+  detectTablet();
+  return (internals.touch || isWindows8OrAbove()) && tablet;
+};
+var isPhone = () => {
+  detectTablet();
+  return internals.touch && !tablet;
+};
+var isDesktop = () => {
+  if (isSSR) {
+    return false;
+  }
+  return !isTablet() && !isPhone() || isWindows8OrAbove();
+};
+var isIOS = () => {
+  return internals.iOS;
+};
+var isAndroid = () => {
+  return internals.android || internals.androidPhone;
+};
 
 // node_modules/@ui5/webcomponents-base/dist/thirdparty/isPlainObject.js
 var class2type = {};
@@ -1055,6 +1055,72 @@ var isThemeRegistered = (theme) => {
   return registeredThemes.has(theme);
 };
 
+// node_modules/@ui5/webcomponents-base/dist/util/whenDOMReady.js
+var whenDOMReady = () => {
+  return new Promise((resolve) => {
+    if (document.body) {
+      resolve();
+    } else {
+      document.addEventListener("DOMContentLoaded", () => {
+        resolve();
+      });
+    }
+  });
+};
+var whenDOMReady_default = whenDOMReady;
+
+// node_modules/@ui5/webcomponents-base/dist/generated/css/FontFace.css.js
+var styleData = {
+  packageName: "@ui5/webcomponents-base",
+  fileName: "FontFace.css",
+  content: `@font-face{font-family:"72";font-style:normal;font-weight:400;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Regular.woff2?ui5-webcomponents) format("woff2"),local("72");unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}@font-face{font-family:"72full";font-style:normal;font-weight:400;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Regular-full.woff2?ui5-webcomponents) format("woff2"),local('72-full')}@font-face{font-family:"72";font-style:normal;font-weight:700;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Bold.woff2?ui5-webcomponents) format("woff2"),local('72-Bold');unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}@font-face{font-family:"72full";font-style:normal;font-weight:700;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Bold-full.woff2?ui5-webcomponents) format("woff2")}@font-face{font-family:'72-Bold';font-style:normal;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Bold.woff2?ui5-webcomponents) format("woff2"),local('72-Bold');unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}@font-face{font-family:'72-Boldfull';font-style:normal;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Bold-full.woff2?ui5-webcomponents) format("woff2")}@font-face{font-family:'72-Light';font-style:normal;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Light.woff2?ui5-webcomponents) format("woff2"),local('72-Light');unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}@font-face{font-family:'72-Lightfull';font-style:normal;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Light-full.woff2?ui5-webcomponents) format("woff2")}@font-face{font-family:'72Mono';src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72Mono-Regular.woff2?ui5-webcomponents) format('woff2'),local('72Mono');unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}@font-face{font-family:'72Monofull';src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72Mono-Regular-full.woff2?ui5-webcomponents) format('woff2')}@font-face{font-family:'72Mono-Bold';src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72Mono-Bold.woff2?ui5-webcomponents) format('woff2'),local('72Mono-Bold');unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}@font-face{font-family:'72Mono-Boldfull';src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72Mono-Bold-full.woff2?ui5-webcomponents) format('woff2')}@font-face{font-family:"72Black";font-style:bold;font-weight:900;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Black.woff2?ui5-webcomponents) format("woff2"),local('72Black');unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}@font-face{font-family:'72Blackfull';src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Black-full.woff2?ui5-webcomponents) format('woff2')}@font-face{font-family:"72-SemiboldDuplex";src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-SemiboldDuplex.woff2?ui5-webcomponents) format("woff2"),local('72-SemiboldDuplex');unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}`
+};
+var FontFace_css_default = styleData;
+
+// node_modules/@ui5/webcomponents-base/dist/generated/css/OverrideFontFace.css.js
+var styleData2 = {
+  packageName: "@ui5/webcomponents-base",
+  fileName: "OverrideFontFace.css",
+  content: `@font-face{font-family:'72override';unicode-range:U+0102-0103,U+01A0-01A1,U+01AF-01B0,U+1EA0-1EB7,U+1EB8-1EC7,U+1EC8-1ECB,U+1ECC-1EE3,U+1EE4-1EF1,U+1EF4-1EF7;src:local('Arial'),local('Helvetica'),local('sans-serif')}`
+};
+var OverrideFontFace_css_default = styleData2;
+
+// node_modules/@ui5/webcomponents-base/dist/FontFace.js
+var insertFontFace = () => {
+  const openUI5Support = getFeature("OpenUI5Support");
+  if (!openUI5Support || !openUI5Support.isOpenUI5Detected()) {
+    insertMainFontFace();
+  }
+  insertOverrideFontFace();
+};
+var insertMainFontFace = () => {
+  if (!hasStyle("data-ui5-font-face")) {
+    createStyle(FontFace_css_default, "data-ui5-font-face");
+  }
+};
+var insertOverrideFontFace = () => {
+  if (!hasStyle("data-ui5-font-face-override")) {
+    createStyle(OverrideFontFace_css_default, "data-ui5-font-face-override");
+  }
+};
+var FontFace_default = insertFontFace;
+
+// node_modules/@ui5/webcomponents-base/dist/generated/css/SystemCSSVars.css.js
+var styleData3 = {
+  packageName: "@ui5/webcomponents-base",
+  fileName: "SystemCSSVars.css",
+  content: `:root{--_ui5_content_density:cozy}.sapUiSizeCompact,.ui5-content-density-compact,[data-ui5-compact-size]{--_ui5_content_density:compact}`
+};
+var SystemCSSVars_css_default = styleData3;
+
+// node_modules/@ui5/webcomponents-base/dist/SystemCSSVars.js
+var insertSystemCSSVars = () => {
+  if (!hasStyle("data-ui5-system-css-vars")) {
+    createStyle(SystemCSSVars_css_default, "data-ui5-system-css-vars");
+  }
+};
+var SystemCSSVars_default = insertSystemCSSVars;
+
 // node_modules/@ui5/webcomponents-base/dist/theming/getThemeDesignerTheme.js
 var warnings = /* @__PURE__ */ new Set();
 var getThemeMetadata = () => {
@@ -1283,71 +1349,22 @@ var applyTheme = (theme) => __async(void 0, null, function* () {
 });
 var applyTheme_default = applyTheme;
 
-// node_modules/@ui5/webcomponents-base/dist/util/whenDOMReady.js
-var whenDOMReady = () => {
-  return new Promise((resolve) => {
-    if (document.body) {
-      resolve();
-    } else {
-      document.addEventListener("DOMContentLoaded", () => {
-        resolve();
-      });
-    }
-  });
-};
-var whenDOMReady_default = whenDOMReady;
-
-// node_modules/@ui5/webcomponents-base/dist/generated/css/FontFace.css.js
-var styleData = {
-  packageName: "@ui5/webcomponents-base",
-  fileName: "FontFace.css",
-  content: `@font-face{font-family:"72";font-style:normal;font-weight:400;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Regular.woff2?ui5-webcomponents) format("woff2"),local("72");unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}@font-face{font-family:"72full";font-style:normal;font-weight:400;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Regular-full.woff2?ui5-webcomponents) format("woff2"),local('72-full')}@font-face{font-family:"72";font-style:normal;font-weight:700;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Bold.woff2?ui5-webcomponents) format("woff2"),local('72-Bold');unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}@font-face{font-family:"72full";font-style:normal;font-weight:700;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Bold-full.woff2?ui5-webcomponents) format("woff2")}@font-face{font-family:'72-Bold';font-style:normal;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Bold.woff2?ui5-webcomponents) format("woff2"),local('72-Bold');unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}@font-face{font-family:'72-Boldfull';font-style:normal;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Bold-full.woff2?ui5-webcomponents) format("woff2")}@font-face{font-family:'72-Light';font-style:normal;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Light.woff2?ui5-webcomponents) format("woff2"),local('72-Light');unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}@font-face{font-family:'72-Lightfull';font-style:normal;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Light-full.woff2?ui5-webcomponents) format("woff2")}@font-face{font-family:'72Mono';src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72Mono-Regular.woff2?ui5-webcomponents) format('woff2'),local('72Mono');unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}@font-face{font-family:'72Monofull';src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72Mono-Regular-full.woff2?ui5-webcomponents) format('woff2')}@font-face{font-family:'72Mono-Bold';src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72Mono-Bold.woff2?ui5-webcomponents) format('woff2'),local('72Mono-Bold');unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}@font-face{font-family:'72Mono-Boldfull';src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72Mono-Bold-full.woff2?ui5-webcomponents) format('woff2')}@font-face{font-family:"72Black";font-style:bold;font-weight:900;src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Black.woff2?ui5-webcomponents) format("woff2"),local('72Black');unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}@font-face{font-family:'72Blackfull';src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-Black-full.woff2?ui5-webcomponents) format('woff2')}@font-face{font-family:"72-SemiboldDuplex";src:url(https://sdk.openui5.org/resources/sap/ui/core/themes/sap_horizon/fonts/72-SemiboldDuplex.woff2?ui5-webcomponents) format("woff2"),local('72-SemiboldDuplex');unicode-range:U+00,U+0D,U+20-7E,U+A0-FF,U+131,U+152-153,U+161,U+178,U+17D-17E,U+192,U+237,U+2C6,U+2DC,U+3BC,U+1E9E,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122}`
-};
-var FontFace_css_default = styleData;
-
-// node_modules/@ui5/webcomponents-base/dist/generated/css/OverrideFontFace.css.js
-var styleData2 = {
-  packageName: "@ui5/webcomponents-base",
-  fileName: "OverrideFontFace.css",
-  content: `@font-face{font-family:'72override';unicode-range:U+0102-0103,U+01A0-01A1,U+01AF-01B0,U+1EA0-1EB7,U+1EB8-1EC7,U+1EC8-1ECB,U+1ECC-1EE3,U+1EE4-1EF1,U+1EF4-1EF7;src:local('Arial'),local('Helvetica'),local('sans-serif')}`
-};
-var OverrideFontFace_css_default = styleData2;
-
-// node_modules/@ui5/webcomponents-base/dist/FontFace.js
-var insertFontFace = () => {
-  const openUI5Support = getFeature("OpenUI5Support");
-  if (!openUI5Support || !openUI5Support.isOpenUI5Detected()) {
-    insertMainFontFace();
+// node_modules/@ui5/webcomponents-base/dist/config/Theme.js
+var curTheme;
+var getTheme2 = () => {
+  if (curTheme === void 0) {
+    curTheme = getTheme();
   }
-  insertOverrideFontFace();
+  return curTheme;
 };
-var insertMainFontFace = () => {
-  if (!hasStyle("data-ui5-font-face")) {
-    createStyle(FontFace_css_default, "data-ui5-font-face");
+var isLegacyThemeFamily = () => {
+  const currentTheme = getTheme2();
+  if (!isKnownTheme(currentTheme)) {
+    return !getThemeDesignerTheme_default()?.baseThemeName?.startsWith("sap_horizon");
   }
+  return !currentTheme.startsWith("sap_horizon");
 };
-var insertOverrideFontFace = () => {
-  if (!hasStyle("data-ui5-font-face-override")) {
-    createStyle(OverrideFontFace_css_default, "data-ui5-font-face-override");
-  }
-};
-var FontFace_default = insertFontFace;
-
-// node_modules/@ui5/webcomponents-base/dist/generated/css/SystemCSSVars.css.js
-var styleData3 = {
-  packageName: "@ui5/webcomponents-base",
-  fileName: "SystemCSSVars.css",
-  content: `:root{--_ui5_content_density:cozy}.sapUiSizeCompact,.ui5-content-density-compact,[data-ui5-compact-size]{--_ui5_content_density:compact}`
-};
-var SystemCSSVars_css_default = styleData3;
-
-// node_modules/@ui5/webcomponents-base/dist/SystemCSSVars.js
-var insertSystemCSSVars = () => {
-  if (!hasStyle("data-ui5-system-css-vars")) {
-    createStyle(SystemCSSVars_css_default, "data-ui5-system-css-vars");
-  }
-};
-var SystemCSSVars_default = insertSystemCSSVars;
+var isKnownTheme = (theme) => SUPPORTED_THEMES.includes(theme);
 
 // node_modules/@ui5/webcomponents-base/dist/Boot.js
 var booted = false;
@@ -1399,26 +1416,29 @@ var onThemeRegistered = (theme) => {
   }
 };
 
-// node_modules/@ui5/webcomponents-base/dist/config/Theme.js
-var curTheme;
-var getTheme2 = () => {
-  if (curTheme === void 0) {
-    curTheme = getTheme();
-  }
-  return curTheme;
-};
-var isLegacyThemeFamily = () => {
-  const currentTheme = getTheme2();
-  if (!isKnownTheme(currentTheme)) {
-    return !getThemeDesignerTheme_default()?.baseThemeName?.startsWith("sap_horizon");
-  }
-  return !currentTheme.startsWith("sap_horizon");
-};
-var isKnownTheme = (theme) => SUPPORTED_THEMES.includes(theme);
-
 export {
+  getSingletonElementInstance_default,
+  getSharedResource_default,
   merge_default2 as merge_default,
+  registerFeature,
+  getFeature,
+  DEFAULT_LANGUAGE,
+  DEFAULT_LOCALE,
+  getLanguage,
+  getFetchDefaultLanguage,
+  getNoConflict,
+  getEnableDefaultTooltips,
   EventProvider_default,
+  VersionInfo_default,
+  registerTag,
+  isTagRegistered,
+  recordTagRegistrationFailure,
+  markAsRtlAware,
+  renderDeferred,
+  renderImmediately,
+  cancelRender,
+  renderFinished,
+  reRenderAllUI5Elements,
   createLinkInHead_default,
   getUrl,
   shouldUseLinks,
@@ -1430,32 +1450,12 @@ export {
   isDesktop,
   isIOS,
   isAndroid,
-  VersionInfo_default,
-  getSingletonElementInstance_default,
-  getSharedResource_default,
   createStyle,
   hasStyle,
-  registerFeature,
-  getFeature,
-  DEFAULT_LANGUAGE,
-  DEFAULT_LOCALE,
-  getLanguage,
-  getFetchDefaultLanguage,
-  getNoConflict,
-  getEnableDefaultTooltips,
-  registerTag,
-  isTagRegistered,
-  recordTagRegistrationFailure,
-  markAsRtlAware,
-  renderDeferred,
-  renderImmediately,
-  cancelRender,
-  renderFinished,
-  reRenderAllUI5Elements,
   registerThemePropertiesLoader,
-  getTheme2 as getTheme,
-  isLegacyThemeFamily,
   attachBoot,
-  boot
+  boot,
+  getTheme2 as getTheme,
+  isLegacyThemeFamily
 };
-//# sourceMappingURL=chunk-KIL2GIL2.js.map
+//# sourceMappingURL=chunk-JASJJZVS.js.map

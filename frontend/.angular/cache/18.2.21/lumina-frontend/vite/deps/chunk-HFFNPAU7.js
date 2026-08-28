@@ -1,9 +1,9 @@
 import {
   registerIcon
-} from "./chunk-45EM4FL4.js";
+} from "./chunk-3YXAI4SY.js";
 import {
   isLegacyThemeFamily
-} from "./chunk-KIL2GIL2.js";
+} from "./chunk-JASJJZVS.js";
 
 // node_modules/@ui5/webcomponents-icons/dist/v4/sys-enter-2.js
 var name = "sys-enter-2";
@@ -109,4 +109,4 @@ var pathData9 = isLegacyThemeFamily() ? pathData7 : pathData8;
 export {
   ICON_DECLINE
 };
-//# sourceMappingURL=chunk-VO2NJHAL.js.map
+//# sourceMappingURL=chunk-HFFNPAU7.js.map

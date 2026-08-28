@@ -1,11 +1,15 @@
+import "./chunk-HFFNPAU7.js";
+import "./chunk-OQHTKXE6.js";
 import {
-  WrappingType_default
-} from "./chunk-GL7BVVNJ.js";
-import "./chunk-VO2NJHAL.js";
+  Icon_default,
+  event_default
+} from "./chunk-U3UACDRZ.js";
 import {
   willShowContent_default
 } from "./chunk-KZFZS4LL.js";
-import "./chunk-P63L4E64.js";
+import {
+  WrappingType_default
+} from "./chunk-GL7BVVNJ.js";
 import {
   BADGE_DESCRIPTION_BADGE,
   BADGE_DESCRIPTION_TAG,
@@ -16,17 +20,13 @@ import {
   BADGE_WARNING
 } from "./chunk-MKUK4J7G.js";
 import {
-  Icon_default,
-  event_default
-} from "./chunk-4CCMOZQP.js";
-import {
   LitRenderer_default,
   effectiveHtml,
   ifDefined,
   parameters_bundle_css_default,
   parameters_bundle_css_default2,
   scopeTag
-} from "./chunk-S2KYTLGV.js";
+} from "./chunk-BK2PCNJ4.js";
 import {
   slot_default
 } from "./chunk-SRQLSZPJ.js";
@@ -34,18 +34,18 @@ import {
   UI5Element_default,
   customElement_default,
   property_default
-} from "./chunk-45WMDHUI.js";
-import "./chunk-XQ36JZLT.js";
+} from "./chunk-2MNVO72Z.js";
 import {
   registerIcon
-} from "./chunk-45EM4FL4.js";
+} from "./chunk-3YXAI4SY.js";
 import {
   getI18nBundle
-} from "./chunk-5RZ2QJVB.js";
+} from "./chunk-CQWP6VSU.js";
 import {
   isLegacyThemeFamily,
   registerThemePropertiesLoader
-} from "./chunk-KIL2GIL2.js";
+} from "./chunk-JASJJZVS.js";
+import "./chunk-XQ36JZLT.js";
 import {
   __async
 } from "./chunk-5K356HEJ.js";

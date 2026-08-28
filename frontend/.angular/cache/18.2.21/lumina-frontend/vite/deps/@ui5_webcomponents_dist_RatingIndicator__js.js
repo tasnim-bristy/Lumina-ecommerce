@@ -2,23 +2,23 @@ import {
   Float_default
 } from "./chunk-CALLVILA.js";
 import {
-  Integer_default
-} from "./chunk-YJ42QTVF.js";
-import {
   getEnableDefaultTooltips
-} from "./chunk-BFT4H3DB.js";
+} from "./chunk-FVP26IXQ.js";
 import {
   getEffectiveAriaLabelText
 } from "./chunk-BY3NBTSA.js";
+import {
+  Icon_default,
+  event_default
+} from "./chunk-U3UACDRZ.js";
+import {
+  Integer_default
+} from "./chunk-YJ42QTVF.js";
 import {
   RATING_INDICATOR_ARIA_DESCRIPTION,
   RATING_INDICATOR_TEXT,
   RATING_INDICATOR_TOOLTIP_TEXT
 } from "./chunk-MKUK4J7G.js";
-import {
-  Icon_default,
-  event_default
-} from "./chunk-4CCMOZQP.js";
 import {
   LitRenderer_default,
   effectiveHtml,
@@ -35,23 +35,23 @@ import {
   parameters_bundle_css_default2,
   repeat,
   scopeTag
-} from "./chunk-S2KYTLGV.js";
+} from "./chunk-BK2PCNJ4.js";
 import {
   UI5Element_default,
   customElement_default,
   property_default
-} from "./chunk-45WMDHUI.js";
-import "./chunk-XQ36JZLT.js";
+} from "./chunk-2MNVO72Z.js";
 import {
   registerIcon
-} from "./chunk-45EM4FL4.js";
+} from "./chunk-3YXAI4SY.js";
 import {
   getI18nBundle
-} from "./chunk-5RZ2QJVB.js";
+} from "./chunk-CQWP6VSU.js";
 import {
   isLegacyThemeFamily,
   registerThemePropertiesLoader
-} from "./chunk-KIL2GIL2.js";
+} from "./chunk-JASJJZVS.js";
+import "./chunk-XQ36JZLT.js";
 import {
   __async
 } from "./chunk-5K356HEJ.js";

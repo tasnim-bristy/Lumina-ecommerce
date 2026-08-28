@@ -4,7 +4,7 @@ import {
   EventProvider_default,
   getFetchDefaultLanguage,
   getLanguage
-} from "./chunk-KIL2GIL2.js";
+} from "./chunk-JASJJZVS.js";
 import {
   __async
 } from "./chunk-5K356HEJ.js";
@@ -359,4 +359,4 @@ var getI18nBundle = (packageName) => __async(void 0, null, function* () {
 export {
   getI18nBundle
 };
-//# sourceMappingURL=chunk-5RZ2QJVB.js.map
+//# sourceMappingURL=chunk-CQWP6VSU.js.map

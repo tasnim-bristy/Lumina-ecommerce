@@ -1,6 +1,6 @@
 import {
   instanceOfUI5Element
-} from "./chunk-45WMDHUI.js";
+} from "./chunk-2MNVO72Z.js";
 
 // node_modules/@ui5/webcomponents-base/dist/delegate/ResizeHandler.js
 var resizeObserver;
@@ -77,4 +77,4 @@ var ResizeHandler_default = ResizeHandler;
 export {
   ResizeHandler_default
 };
-//# sourceMappingURL=chunk-FMNTYMAV.js.map
+//# sourceMappingURL=chunk-UQ5I4VPN.js.map
