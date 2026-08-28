@@ -16,7 +16,9 @@ COPY . .
 RUN composer dump-autoload --optimize \
     && mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache \
     && touch database/database.sqlite \
-    && chmod -R 775 storage bootstrap/cache database
+    && chmod -R 775 storage bootstrap/cache database \
+    && rm -rf public/storage \
+    && cp -r storage/app/public public/storage
 
 RUN chmod +x docker-entrypoint.sh
 
