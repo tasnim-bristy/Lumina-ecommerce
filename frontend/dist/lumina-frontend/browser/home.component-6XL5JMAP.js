@@ -369,6 +369,12 @@ var EDIT_BLURBS = [
     note: "A rotating shelf of staff picks across categories.",
     image: "assets/images/categories/electronics.jpg",
     routerLink: ["/category", "electronics"]
+  },
+  {
+    title: "Considered spaces",
+    note: "Pieces we'd actually want to live with, not just sell.",
+    image: "assets/images/decorative/arches.jpg",
+    routerLink: ["/category", "fashion"]
   }
 ];
 var HomeComponent = class _HomeComponent {
@@ -517,9 +523,9 @@ var HomeComponent = class _HomeComponent {
   }
 };
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(HomeComponent, { className: "HomeComponent", filePath: "src/app/features/home/home.component.ts", lineNumber: 122 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(HomeComponent, { className: "HomeComponent", filePath: "src/app/features/home/home.component.ts", lineNumber: 128 });
 })();
 export {
   HomeComponent
 };
-//# sourceMappingURL=home.component-ZFZ56HW4.js.map
+//# sourceMappingURL=home.component-6XL5JMAP.js.map

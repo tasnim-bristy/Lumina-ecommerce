@@ -22106,7 +22106,7 @@ var authInterceptor = (req, next) => {
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./home.component-ZFZ56HW4.js").then((m3) => m3.HomeComponent),
+    loadComponent: () => import("./home.component-6XL5JMAP.js").then((m3) => m3.HomeComponent),
     title: "Lumina \u2014 Thoughtfully Sourced Goods"
   },
   {
