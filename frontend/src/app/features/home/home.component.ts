@@ -102,6 +102,12 @@ const EDIT_BLURBS: EditBlurb[] = [
     image: 'assets/images/categories/electronics.jpg',
     routerLink: ['/category', 'electronics'],
   },
+  {
+    title: 'Considered spaces',
+    note: 'Pieces we\'d actually want to live with, not just sell.',
+    image: 'assets/images/decorative/arches.jpg',
+    routerLink: ['/category', 'fashion'],
+  },
 ];
 
 @Component({
