@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/core/constants.ts"],
-  "sourcesContent": ["/** localStorage keys shared between services so nothing collides or drifts. */\nexport const STORAGE_KEYS = {\n  guestToken: 'lumina_guest_token',\n  authToken: 'lumina_auth_token',\n  compareIds: 'lumina_compare_ids',\n} as const;\n"],
-  "mappings": ";AACO,IAAM,eAAe;EAC1B,YAAY;EACZ,WAAW;EACX,YAAY;;",
-  "names": []
-}

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/shared/components/empty-state/empty-state.component.scss"],
-  "sourcesContent": [":host {\n  display: block;\n}\n\n.empty-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.75rem;\n  padding: 3.5rem 1.5rem;\n  border: 1px solid var(--color-border);\n  border-radius: 14px;\n  background: var(--color-cream-soft);\n}\n\n.empty-state__icon {\n  color: var(--color-sage);\n  width: 2.5rem;\n  height: 2.5rem;\n  margin-bottom: 0.25rem;\n}\n\n.empty-state__title {\n  font-family: 'Fraunces', serif;\n  font-size: 1.25rem;\n  color: var(--color-charcoal);\n  margin: 0;\n}\n\n.empty-state__message {\n  color: var(--color-charcoal-soft);\n  max-width: 32ch;\n  margin: 0;\n}\n\n.empty-state__action {\n  margin-top: 0.5rem;\n}\n"],
-  "mappings": ";AAAA;AACE,WAAA;;AAGF,CAAA;AACE,WAAA;AACA,kBAAA;AACA,eAAA;AACA,cAAA;AACA,OAAA;AACA,WAAA,OAAA;AACA,UAAA,IAAA,MAAA,IAAA;AACA,iBAAA;AACA,cAAA,IAAA;;AAGF,CAAA;AACE,SAAA,IAAA;AACA,SAAA;AACA,UAAA;AACA,iBAAA;;AAGF,CAAA;AACE,eAAA,UAAA,EAAA;AACA,aAAA;AACA,SAAA,IAAA;AACA,UAAA;;AAGF,CAAA;AACE,SAAA,IAAA;AACA,aAAA;AACA,UAAA;;AAGF,CAAA;AACE,cAAA;;",
-  "names": []
-}

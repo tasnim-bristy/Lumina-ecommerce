@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/shared/components/star-rating/star-rating.component.scss"],
-  "sourcesContent": [":host {\n  display: inline-flex;\n}\n\n.star-rating {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.35rem;\n\n  &--sm {\n    --_star-size: 0.85rem;\n    font-size: 0.75rem;\n  }\n\n  &--md {\n    --_star-size: 1rem;\n    font-size: 0.85rem;\n  }\n\n  &--lg {\n    --_star-size: 1.25rem;\n    font-size: 1rem;\n  }\n}\n\n.star-rating__stars {\n  --sapContent_IconColor: var(--color-gold);\n  --_ui5_rating_indicator_item_size: var(--_star-size, 1rem);\n}\n\n.star-rating__value {\n  font-weight: 600;\n  color: var(--color-charcoal);\n}\n\n.star-rating__count {\n  color: var(--color-charcoal-soft);\n}\n"],
-  "mappings": ";AAAA;AACE,WAAA;;AAGF,CAAA;AACE,WAAA;AACA,eAAA;AACA,OAAA;;AAEA,CAAA;AACE,gBAAA;AACA,aAAA;;AAGF,CAAA;AACE,gBAAA;AACA,aAAA;;AAGF,CAAA;AACE,gBAAA;AACA,aAAA;;AAIJ,CAAA;AACE,0BAAA,IAAA;AACA,qCAAA,IAAA,YAAA,EAAA;;AAGF,CAAA;AACE,eAAA;AACA,SAAA,IAAA;;AAGF,CAAA;AACE,SAAA,IAAA;;",
-  "names": []
-}
