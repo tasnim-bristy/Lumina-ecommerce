@@ -17,19 +17,29 @@
       </div>
     </div>
 
-    <div class="hero__art">
-      <img
-        class="hero__art-image hero__art-image--main"
-        src="assets/images/hero/hero-main.jpg"
-        alt="A considered still life of Lumina goods"
-        loading="eager"
-      />
-      <img
-        class="hero__art-image hero__art-image--accent"
-        src="assets/images/hero/hero-accent.jpg"
-        alt="Detail shot of a Lumina product"
-        loading="eager"
-      />
+    <div class="hero__art hero__carousel">
+      @for (slide of heroSlides(); track slide.slug; let i = $index) {
+        <img
+          class="hero__carousel-image"
+          [class.is-active]="i === activeHeroSlide()"
+          [src]="slide.thumbnail"
+          [alt]="slide.name"
+          loading="eager"
+        />
+      }
+      @if (heroSlides().length > 1) {
+        <div class="hero__carousel-dots">
+          @for (slide of heroSlides(); track slide.slug; let i = $index) {
+            <button
+              type="button"
+              class="hero__carousel-dot"
+              [class.is-active]="i === activeHeroSlide()"
+              (click)="setHeroSlide(i)"
+              [attr.aria-label]="'Show ' + slide.name"
+            ></button>
+          }
+        </div>
+      }
     </div>
   </div>
 </section>

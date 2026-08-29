@@ -1,14 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, signal } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { interval } from 'rxjs';
 import { CategoryService } from '../../core/services/category.service';
 import { RecommendationService } from '../../core/services/recommendation.service';
 import { Category } from '../../core/models/category.model';
 import { ProductCardComponent } from '../../shared/components/product-card/product-card.component';
 import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader/skeleton-loader.component';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
+
+interface HeroSlide {
+  slug: string;
+  name: string;
+  thumbnail: string;
+}
 
 interface TrustPoint {
   icon: string;
@@ -129,6 +136,19 @@ export class HomeComponent {
   private readonly categoryService = inject(CategoryService);
   private readonly recommendationService = inject(RecommendationService);
 
+  constructor() {
+    interval(4500)
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => {
+        const total = this.heroSlides().length;
+        if (total > 1) this.activeHeroSlide.update((i) => (i + 1) % total);
+      });
+
+    effect(() => {
+      if (this.activeHeroSlide() >= this.heroSlides().length) this.activeHeroSlide.set(0);
+    });
+  }
+
   readonly trustPoints = TRUST_POINTS;
   readonly moodTiles = MOOD_TILES;
   readonly editBlurbs = EDIT_BLURBS;
@@ -154,6 +174,28 @@ export class HomeComponent {
   readonly showForYou = computed(() => this.forYouLoading() || this.forYou().length > 0);
 
   readonly heroCategory = computed(() => this.categories()[0] ?? null);
+
+  /** One representative product image per section, so the banner carousel
+   *  reflects the actual catalog rather than fixed stock photography. */
+  readonly heroSlides = computed<HeroSlide[]>(() => {
+    const seen = new Set<string>();
+    const slides: HeroSlide[] = [];
+    for (const product of [...this.trending(), ...this.forYou()]) {
+      if (seen.has(product.category.slug)) continue;
+      seen.add(product.category.slug);
+      slides.push({ slug: product.category.slug, name: product.name, thumbnail: product.thumbnail });
+      if (slides.length === 8) break;
+    }
+    return slides.length
+      ? slides
+      : [{ slug: 'default', name: 'A considered still life of Lumina goods', thumbnail: 'assets/images/hero/hero-main.jpg' }];
+  });
+
+  readonly activeHeroSlide = signal(0);
+
+  setHeroSlide(index: number): void {
+    this.activeHeroSlide.set(index);
+  }
 
   readonly newsletterEmail = signal('');
   readonly newsletterSubmitted = signal(false);

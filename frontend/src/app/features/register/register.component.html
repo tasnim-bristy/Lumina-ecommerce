@@ -29,6 +29,15 @@
         ></ui5-input>
       </label>
       <label class="form-field">
+        <span>Phone number <span class="form-field__optional">(optional)</span></span>
+        <ui5-input
+          type="Tel"
+          [value]="phone"
+          (input)="phone = $any($event.target).value"
+          name="phone"
+        ></ui5-input>
+      </label>
+      <label class="form-field">
         <span>Password</span>
         <ui5-input
           type="Password"

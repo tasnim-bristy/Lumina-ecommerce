@@ -24,6 +24,7 @@ export class RegisterComponent {
 
   name = '';
   email = '';
+  phone = '';
   password = '';
   confirmPassword = '';
 
@@ -45,7 +46,7 @@ export class RegisterComponent {
     this.submitting.set(true);
     this.error.set(null);
 
-    this.authService.register(this.name, this.email, this.password).subscribe({
+    this.authService.register(this.name, this.email, this.phone, this.password).subscribe({
       next: () => {
         forkJoin([this.cartService.mergeGuestCart(), this.wishlistService.mergeGuestWishlist()]).subscribe({
           next: () => {

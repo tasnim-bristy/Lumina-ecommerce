@@ -116,7 +116,7 @@ Base URL: `/api`
 | POST | `/recommendations/track-view` | `{product_id}` fire-and-forget, powers for-you + trending |
 | POST | `/checkout` | `{shipping_address, payment_method}` → creates order from cart. `payment_method` is one of `bkash`, `nagad`, `rocket`, `card`, `cash_on_delivery` (see `config/payment_methods.php`). `shipping_address` is Bangladesh-specific: `{full_name, mobile_number, division, district, upazila, area, address, postal_code, country: "Bangladesh"}` — stored as-is (JSON column), not validated field-by-field |
 | GET | `/orders` | auth |
-| POST | `/register` | `{name, email, password}` → `{token, user}` |
+| POST | `/register` | `{name, email, phone?, password}` → `{token, user}` (`phone` is optional) |
 | POST | `/login` | `{email, password}` → `{token, user}` |
 | POST | `/logout` | auth |
 | GET | `/me` | auth |
