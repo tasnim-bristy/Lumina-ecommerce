@@ -5,8 +5,8 @@
     <p class="empty-state__message">{{ message() }}</p>
   }
   @if (actionLabel() && actionRoute()) {
-    <ui5-button design="Emphasized" [routerLink]="actionRoute()" class="empty-state__action">
+    <a class="btn btn--primary empty-state__action" [routerLink]="actionRoute()">
       {{ actionLabel() }}
-    </ui5-button>
+    </a>
   }
 </div>
