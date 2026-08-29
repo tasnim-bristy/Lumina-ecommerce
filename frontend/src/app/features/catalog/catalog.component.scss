@@ -24,6 +24,13 @@
   align-items: start;
 }
 
+.catalog__results {
+  // Grid items default to min-width: auto, which refuses to shrink below
+  // the content's preferred size — without this, the auto-fill product
+  // grid below forces the whole layout wider than the viewport on mobile.
+  min-width: 0;
+}
+
 // ---------------------------------------------------------------------------
 // Active-filter chips
 // ---------------------------------------------------------------------------
